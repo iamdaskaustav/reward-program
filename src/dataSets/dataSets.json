@@ -1,0 +1,780 @@
+{
+  "customers": [
+    {
+      "id": 1,
+      "customer_name": "John Doe"
+    },
+    {
+      "id": 2,
+      "customer_name": "Jane Smith"
+    },
+    {
+      "id": 3,
+      "customer_name": "Michael Johnson"
+    },
+    {
+      "id": 4,
+      "customer_name": "Emily Davis"
+    },
+    {
+      "id": 5,
+      "customer_name": "David Miller"
+    },
+    {
+      "id": 6,
+      "customer_name": "Sarah Wilson"
+    },
+    {
+      "id": 7,
+      "customer_name": "James Brown"
+    },
+    {
+      "id": 8,
+      "customer_name": "Patricia Taylor"
+    },
+    {
+      "id": 9,
+      "customer_name": "Daniel Anderson"
+    },
+    {
+      "id": 10,
+      "customer_name": "Laura Thomas"
+    },
+    {
+      "id": 11,
+      "customer_name": "William Jackson"
+    },
+    {
+      "id": 12,
+      "customer_name": "Linda White"
+    },
+    {
+      "id": 13,
+      "customer_name": "Robert Harris"
+    },
+    {
+      "id": 14,
+      "customer_name": "Elizabeth Clark"
+    },
+    {
+      "id": 15,
+      "customer_name": "Joseph Lewis"
+    }
+  ],
+  "transactions": [
+    {
+      "id": 1,
+      "purchase_date": 1727144506,
+      "product_name": "Gaming Headset",
+      "product_price": 328.23,
+      "customerId": 2
+    },
+    {
+      "id": 2,
+      "purchase_date": 1717519810,
+      "product_name": "External Hard Drive",
+      "product_price": 233.44,
+      "customerId": 12
+    },
+    {
+      "id": 3,
+      "purchase_date": 1720845520,
+      "product_name": "Webcam",
+      "product_price": 43.11,
+      "customerId": 3
+    },
+    {
+      "id": 4,
+      "purchase_date": 1720500670,
+      "product_name": "USB Hub",
+      "product_price": 210.58,
+      "customerId": 13
+    },
+    {
+      "id": 5,
+      "purchase_date": 1722594600,
+      "product_name": "Bluetooth Keyboard",
+      "product_price": 123.05,
+      "customerId": 1
+    },
+    {
+      "id": 6,
+      "purchase_date": 1715634017,
+      "product_name": "Smartwatch",
+      "product_price": 218.07,
+      "customerId": 15
+    },
+    {
+      "id": 7,
+      "purchase_date": 1719109466,
+      "product_name": "USB Hub",
+      "product_price": 149.87,
+      "customerId": 12
+    },
+    {
+      "id": 8,
+      "purchase_date": 1724201427,
+      "product_name": "External Hard Drive",
+      "product_price": 262.64,
+      "customerId": 14
+    },
+    {
+      "id": 9,
+      "purchase_date": 1734191363,
+      "product_name": "Gaming Headset",
+      "product_price": 277.74,
+      "customerId": 2
+    },
+    {
+      "id": 10,
+      "purchase_date": 1733044468,
+      "product_name": "Portable Speaker",
+      "product_price": 113.78,
+      "customerId": 9
+    },
+    {
+      "id": 11,
+      "purchase_date": 1714205014,
+      "product_name": "Webcam",
+      "product_price": 202.68,
+      "customerId": 5
+    },
+    {
+      "id": 12,
+      "purchase_date": 1716219436,
+      "product_name": "Wireless Mouse",
+      "product_price": 319.47,
+      "customerId": 12
+    },
+    {
+      "id": 13,
+      "purchase_date": 1727140993,
+      "product_name": "External Hard Drive",
+      "product_price": 177.68,
+      "customerId": 8
+    },
+    {
+      "id": 14,
+      "purchase_date": 1723716383,
+      "product_name": "External Hard Drive",
+      "product_price": 289.97,
+      "customerId": 5
+    },
+    {
+      "id": 15,
+      "purchase_date": 1713965253,
+      "product_name": "Smartwatch",
+      "product_price": 177.6,
+      "customerId": 10
+    },
+    {
+      "id": 16,
+      "purchase_date": 1714924405,
+      "product_name": "Wireless Charger",
+      "product_price": 196.52,
+      "customerId": 4
+    },
+    {
+      "id": 17,
+      "purchase_date": 1735183070,
+      "product_name": "Wireless Charger",
+      "product_price": 278.42,
+      "customerId": 11
+    },
+    {
+      "id": 18,
+      "purchase_date": 1723012838,
+      "product_name": "Smartwatch",
+      "product_price": 315.77,
+      "customerId": 6
+    },
+    {
+      "id": 19,
+      "purchase_date": 1734158462,
+      "product_name": "Wireless Mouse",
+      "product_price": 39.46,
+      "customerId": 10
+    },
+    {
+      "id": 20,
+      "purchase_date": 1707263952,
+      "product_name": "USB Hub",
+      "product_price": 141.49,
+      "customerId": 8
+    },
+    {
+      "id": 21,
+      "purchase_date": 1728045600,
+      "product_name": "Laptop Stand",
+      "product_price": 103.56,
+      "customerId": 3
+    },
+    {
+      "id": 22,
+      "purchase_date": 1731141462,
+      "product_name": "Bluetooth Keyboard",
+      "product_price": 87.25,
+      "customerId": 7
+    },
+    {
+      "id": 23,
+      "purchase_date": 1732042501,
+      "product_name": "Wireless Charger",
+      "product_price": 229.65,
+      "customerId": 11
+    },
+    {
+      "id": 24,
+      "purchase_date": 1729344600,
+      "product_name": "Webcam",
+      "product_price": 63.14,
+      "customerId": 9
+    },
+    {
+      "id": 25,
+      "purchase_date": 1733209460,
+      "product_name": "Gaming Headset",
+      "product_price": 294.88,
+      "customerId": 14
+    },
+    {
+      "id": 26,
+      "purchase_date": 1735218400,
+      "product_name": "Smartwatch",
+      "product_price": 179.34,
+      "customerId": 4
+    },
+    {
+      "id": 27,
+      "purchase_date": 1719127200,
+      "product_name": "Portable Speaker",
+      "product_price": 68.47,
+      "customerId": 15
+    },
+    {
+      "id": 28,
+      "purchase_date": 1719012400,
+      "product_name": "External Hard Drive",
+      "product_price": 324.78,
+      "customerId": 2
+    },
+    {
+      "id": 29,
+      "purchase_date": 1720128460,
+      "product_name": "Laptop Stand",
+      "product_price": 195.29,
+      "customerId": 6
+    },
+    {
+      "id": 30,
+      "purchase_date": 1724125600,
+      "product_name": "Bluetooth Keyboard",
+      "product_price": 132.15,
+      "customerId": 13
+    },
+    {
+      "id": 31,
+      "purchase_date": 1730040400,
+      "product_name": "Wireless Mouse",
+      "product_price": 50.67,
+      "customerId": 7
+    },
+    {
+      "id": 32,
+      "purchase_date": 1720201400,
+      "product_name": "Gaming Headset",
+      "product_price": 310.44,
+      "customerId": 8
+    },
+    {
+      "id": 33,
+      "purchase_date": 1716289600,
+      "product_name": "Wireless Charger",
+      "product_price": 240.12,
+      "customerId": 10
+    },
+    {
+      "id": 34,
+      "purchase_date": 1717305400,
+      "product_name": "USB Hub",
+      "product_price": 81.96,
+      "customerId": 1
+    },
+    {
+      "id": 35,
+      "purchase_date": 1727255600,
+      "product_name": "Webcam",
+      "product_price": 74.33,
+      "customerId": 12
+    },
+    {
+      "id": 36,
+      "purchase_date": 1732049600,
+      "product_name": "Smartwatch",
+      "product_price": 188.45,
+      "customerId": 14
+    },
+    {
+      "id": 37,
+      "purchase_date": 1725092400,
+      "product_name": "Portable Speaker",
+      "product_price": 94.56,
+      "customerId": 3
+    },
+    {
+      "id": 38,
+      "purchase_date": 1730148400,
+      "product_name": "Bluetooth Keyboard",
+      "product_price": 154.32,
+      "customerId": 6
+    },
+    {
+      "id": 39,
+      "purchase_date": 1719945600,
+      "product_name": "Gaming Headset",
+      "product_price": 265.89,
+      "customerId": 11
+    },
+    {
+      "id": 40,
+      "purchase_date": 1718341200,
+      "product_name": "Laptop Stand",
+      "product_price": 135.75,
+      "customerId": 9
+    },
+    {
+      "id": 41,
+      "purchase_date": 1732155600,
+      "product_name": "Wireless Mouse",
+      "product_price": 43.12,
+      "customerId": 2
+    },
+    {
+      "id": 42,
+      "purchase_date": 1717629600,
+      "product_name": "Wireless Charger",
+      "product_price": 279.43,
+      "customerId": 13
+    },
+    {
+      "id": 43,
+      "purchase_date": 1724055600,
+      "product_name": "USB Hub",
+      "product_price": 127.89,
+      "customerId": 8
+    },
+    {
+      "id": 44,
+      "purchase_date": 1722345600,
+      "product_name": "External Hard Drive",
+      "product_price": 344.99,
+      "customerId": 7
+    },
+    {
+      "id": 45,
+      "purchase_date": 1716543600,
+      "product_name": "Webcam",
+      "product_price": 56.34,
+      "customerId": 15
+    },
+    {
+      "id": 46,
+      "purchase_date": 1729123600,
+      "product_name": "Smartwatch",
+      "product_price": 203.67,
+      "customerId": 5
+    },
+    {
+      "id": 47,
+      "purchase_date": 1733205600,
+      "product_name": "Portable Speaker",
+      "product_price": 118.78,
+      "customerId": 12
+    },
+    {
+      "id": 48,
+      "purchase_date": 1726145600,
+      "product_name": "Gaming Headset",
+      "product_price": 297.85,
+      "customerId": 10
+    },
+    {
+      "id": 49,
+      "purchase_date": 1720045600,
+      "product_name": "Laptop Stand",
+      "product_price": 198.44,
+      "customerId": 4
+    },
+    {
+      "id": 50,
+      "purchase_date": 1729148600,
+      "product_name": "Bluetooth Keyboard",
+      "product_price": 140.89,
+      "customerId": 1
+    },
+    {
+      "id": 51,
+      "purchase_date": 1731045600,
+      "product_name": "Wireless Charger",
+      "product_price": 221.56,
+      "customerId": 8
+    },
+    {
+      "id": 52,
+      "purchase_date": 1736145600,
+      "product_name": "USB Hub",
+      "product_price": 95.34,
+      "customerId": 14
+    },
+    {
+      "id": 53,
+      "purchase_date": 1721145600,
+      "product_name": "Webcam",
+      "product_price": 89.44,
+      "customerId": 9
+    },
+    {
+      "id": 54,
+      "purchase_date": 1719148600,
+      "product_name": "Smartwatch",
+      "product_price": 232.67,
+      "customerId": 2
+    },
+    {
+      "id": 55,
+      "purchase_date": 1718145600,
+      "product_name": "Portable Speaker",
+      "product_price": 74.23,
+      "customerId": 6
+    },
+    {
+      "id": 56,
+      "purchase_date": 1728048600,
+      "product_name": "External Hard Drive",
+      "product_price": 312.89,
+      "customerId": 11
+    },
+    {
+      "id": 57,
+      "purchase_date": 1732145600,
+      "product_name": "Gaming Headset",
+      "product_price": 285.67,
+      "customerId": 15
+    },
+    {
+      "id": 58,
+      "purchase_date": 1716145600,
+      "product_name": "Wireless Mouse",
+      "product_price": 47.34,
+      "customerId": 5
+    },
+    {
+      "id": 59,
+      "purchase_date": 1723148600,
+      "product_name": "Laptop Stand",
+      "product_price": 190.44,
+      "customerId": 12
+    },
+    {
+      "id": 60,
+      "purchase_date": 1728245600,
+      "product_name": "Bluetooth Keyboard",
+      "product_price": 123.12,
+      "customerId": 3
+    },
+    {
+      "id": 61,
+      "purchase_date": 1726148600,
+      "product_name": "Bluetooth Speaker",
+      "product_price": 98.99,
+      "customerId": 4
+    },
+    {
+      "id": 62,
+      "purchase_date": 1732095600,
+      "product_name": "Gaming Headset",
+      "product_price": 287.33,
+      "customerId": 15
+    },
+    {
+      "id": 63,
+      "purchase_date": 1730193600,
+      "product_name": "Webcam",
+      "product_price": 110.87,
+      "customerId": 13
+    },
+    {
+      "id": 64,
+      "purchase_date": 1733121600,
+      "product_name": "Smartwatch",
+      "product_price": 305.72,
+      "customerId": 10
+    },
+    {
+      "id": 65,
+      "purchase_date": 1723184600,
+      "product_name": "Wireless Mouse",
+      "product_price": 48.27,
+      "customerId": 7
+    },
+    {
+      "id": 66,
+      "purchase_date": 1736135600,
+      "product_name": "Portable Speaker",
+      "product_price": 138.99,
+      "customerId": 6
+    },
+    {
+      "id": 67,
+      "purchase_date": 1719847600,
+      "product_name": "Laptop Stand",
+      "product_price": 167.43,
+      "customerId": 12
+    },
+    {
+      "id": 68,
+      "purchase_date": 1721205600,
+      "product_name": "External Hard Drive",
+      "product_price": 322.01,
+      "customerId": 2
+    },
+    {
+      "id": 69,
+      "purchase_date": 1723125600,
+      "product_name": "Bluetooth Keyboard",
+      "product_price": 139.24,
+      "customerId": 11
+    },
+    {
+      "id": 70,
+      "purchase_date": 1724199600,
+      "product_name": "USB Hub",
+      "product_price": 118.42,
+      "customerId": 3
+    },
+    {
+      "id": 71,
+      "purchase_date": 1717785600,
+      "product_name": "Gaming Headset",
+      "product_price": 318.65,
+      "customerId": 14
+    },
+    {
+      "id": 72,
+      "purchase_date": 1719863200,
+      "product_name": "Smartwatch",
+      "product_price": 259.99,
+      "customerId": 9
+    },
+    {
+      "id": 73,
+      "purchase_date": 1722019600,
+      "product_name": "Wireless Charger",
+      "product_price": 190.75,
+      "customerId": 7
+    },
+    {
+      "id": 74,
+      "purchase_date": 1728236400,
+      "product_name": "Webcam",
+      "product_price": 82.66,
+      "customerId": 5
+    },
+    {
+      "id": 75,
+      "purchase_date": 1716079200,
+      "product_name": "External Hard Drive",
+      "product_price": 264.77,
+      "customerId": 4
+    },
+    {
+      "id": 76,
+      "purchase_date": 1718252800,
+      "product_name": "Wireless Mouse",
+      "product_price": 72.13,
+      "customerId": 8
+    },
+    {
+      "id": 77,
+      "purchase_date": 1726037600,
+      "product_name": "Smartwatch",
+      "product_price": 305.53,
+      "customerId": 12
+    },
+    {
+      "id": 78,
+      "purchase_date": 1729065600,
+      "product_name": "Gaming Headset",
+      "product_price": 334.61,
+      "customerId": 6
+    },
+    {
+      "id": 79,
+      "purchase_date": 1735185600,
+      "product_name": "Portable Speaker",
+      "product_price": 108.37,
+      "customerId": 10
+    },
+    {
+      "id": 80,
+      "purchase_date": 1717633200,
+      "product_name": "Laptop Stand",
+      "product_price": 159.23,
+      "customerId": 2
+    },
+    {
+      "id": 80,
+      "purchase_date": 1707153600,
+      "product_name": "Laptop Stand",
+      "product_price": 159.23,
+      "customerId": 2
+    },
+    {
+      "id": 81,
+      "purchase_date": 1709240000,
+      "product_name": "Wireless Charger",
+      "product_price": 285.46,
+      "customerId": 9
+    },
+    {
+      "id": 82,
+      "purchase_date": 1707801600,
+      "product_name": "USB Hub",
+      "product_price": 138.59,
+      "customerId": 1
+    },
+    {
+      "id": 83,
+      "purchase_date": 1708368000,
+      "product_name": "Smartwatch",
+      "product_price": 295.61,
+      "customerId": 13
+    },
+    {
+      "id": 84,
+      "purchase_date": 1709073600,
+      "product_name": "Gaming Headset",
+      "product_price": 287.19,
+      "customerId": 5
+    },
+    {
+      "id": 85,
+      "purchase_date": 1710147200,
+      "product_name": "External Hard Drive",
+      "product_price": 312.55,
+      "customerId": 3
+    },
+    {
+      "id": 86,
+      "purchase_date": 1709443200,
+      "product_name": "Bluetooth Speaker",
+      "product_price": 175.67,
+      "customerId": 15
+    },
+    {
+      "id": 87,
+      "purchase_date": 1711580800,
+      "product_name": "Portable Speaker",
+      "product_price": 115.44,
+      "customerId": 7
+    },
+    {
+      "id": 88,
+      "purchase_date": 1708540800,
+      "product_name": "Webcam",
+      "product_price": 118.45,
+      "customerId": 8
+    },
+    {
+      "id": 89,
+      "purchase_date": 1708905600,
+      "product_name": "Gaming Headset",
+      "product_price": 239.64,
+      "customerId": 6
+    },
+    {
+      "id": 90,
+      "purchase_date": 1709424000,
+      "product_name": "Bluetooth Keyboard",
+      "product_price": 210.17,
+      "customerId": 4
+    },
+    {
+      "id": 90,
+      "purchase_date": 1708128000,
+      "product_name": "Wireless Mouse",
+      "product_price": 91.42,
+      "customerId": 13
+    },
+    {
+      "id": 91,
+      "purchase_date": 1704326400,
+      "product_name": "Smartwatch",
+      "product_price": 133.73,
+      "customerId": 8
+    },
+    {
+      "id": 92,
+      "purchase_date": 1706832000,
+      "product_name": "Portable Speaker",
+      "product_price": 142.46,
+      "customerId": 7
+    },
+    {
+      "id": 93,
+      "purchase_date": 1707609600,
+      "product_name": "Gaming Headset",
+      "product_price": 130.56,
+      "customerId": 2
+    },
+    {
+      "id": 94,
+      "purchase_date": 1704326400,
+      "product_name": "Smartwatch",
+      "product_price": 198.09,
+      "customerId": 1
+    },
+    {
+      "id": 95,
+      "purchase_date": 1702857600,
+      "product_name": "Smartwatch",
+      "product_price": 54.33,
+      "customerId": 14
+    },
+    {
+      "id": 96,
+      "purchase_date": 1710288000,
+      "product_name": "Gaming Headset",
+      "product_price": 348.94,
+      "customerId": 9
+    },
+    {
+      "id": 97,
+      "purchase_date": 1707225600,
+      "product_name": "External Hard Drive",
+      "product_price": 195.34,
+      "customerId": 11
+    },
+    {
+      "id": 98,
+      "purchase_date": 1708060800,
+      "product_name": "Gaming Controller",
+      "product_price": 56.12,
+      "customerId": 10
+    },
+    {
+      "id": 99,
+      "purchase_date": 1706928000,
+      "product_name": "Portable Speaker",
+      "product_price": 213.41,
+      "customerId": 5
+    },
+    {
+      "id": 100,
+      "purchase_date": 1703980800,
+      "product_name": "Smartwatch",
+      "product_price": 310.44,
+      "customerId": 12
+    }
+  ]
+}
