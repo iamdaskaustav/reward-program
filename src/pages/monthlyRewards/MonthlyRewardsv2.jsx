@@ -11,6 +11,7 @@ import NoDataFound from "../../components/NoDataFound";
 import PageBreadcrumb from "../../components/PageBreadcrumb";
 import { logger } from "../../utils/logger";
 
+// columns for table header
 const columns = [
   {
     name: "Customer Id",
@@ -92,11 +93,13 @@ const MonthlyRewards = () => {
     }
   };
 
+  // data change handler
   const changeMonth = async () => {
     const transactions = await getTransactions();
     await getMonthlyTransactions(customers, transactions);
   };
 
+  // get month range array from startdate and enddate
   const getMonthsInRange = (startDate, endDate) => {
     const start = dayjs(startDate);
     const end = dayjs(endDate);
@@ -112,6 +115,7 @@ const MonthlyRewards = () => {
     return months;
   };
 
+  // calculate total rewards point by providing month list and transactions list and return result in array of objects
   const accumulateRewardsByMonth = (rewardsByMonth, transactions) => {
     const monthlyRewardObj = transactions.reduce((acc, transaction) => {
       const purchaseDate = new Date(transaction.purchase_date * 1000); // Convert Unix timestamp to milliseconds
@@ -149,6 +153,7 @@ const MonthlyRewards = () => {
     }));
   };
 
+  // main controller - get customers, separate transaction by customer, set data and sort data by time
   const getMonthlyTransactions = (totalCustomer, transactions) => {
     const data = totalCustomer.map((customer) => {
       const months = getMonthsInRange(startMonth, endMonth).reduce(

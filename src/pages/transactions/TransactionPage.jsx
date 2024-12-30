@@ -11,6 +11,7 @@ import ApiService from "../../apis/index";
 import PageBreadcrumb from "../../components/PageBreadcrumb";
 import { logger } from "../../utils/logger";
 
+// columns for header
 const columns = [
   {
     name: "Transaction Id",
@@ -118,6 +119,7 @@ const TransacrionPage = () => {
     await getTransactionWithCustomer(customers, transactions);
   };
 
+  // main controller - get customers and transactions, map customer to transactions
   const getTransactionWithCustomer = (totalCustomer, transactions) => {
     setLoader(true);
     const data = transactions.map((t) => {

@@ -3,6 +3,7 @@ import DataTable from "react-data-table-component";
 import dayjs from "dayjs";
 import PropTypes from "prop-types";
 
+// Expendable components inside table
 const ExpandedComponent = React.memo(({ data }) => (
   <div style={{ padding: "10px 20px", backgroundColor: "#f9f9f9" }}>
     <h4>Monthly Rewards</h4>
@@ -48,6 +49,7 @@ const DataTableComponent = React.memo(
 DataTableComponent.displayName = "DataTableComponent";
 ExpandedComponent.displayName = "ExpandedComponent";
 
+// propsTypes
 ExpandedComponent.propTypes = {
   data: PropTypes.arrayOf(
     PropTypes.oneOfType([

@@ -1,6 +1,7 @@
 import { logger } from "../utils/logger";
 
 const apiService = {
+  // get all customers
   async getCustomers() {
     try {
       const response = await fetch("http://localhost:5000/customers");
@@ -14,6 +15,7 @@ const apiService = {
       logger.error("There was a problem with the fetch operation:", error);
     }
   },
+  // get transactions by startdate and enddate
   async getTransactionsByMonth(startDate, endDate) {
     try {
       const response = await fetch(
@@ -29,6 +31,7 @@ const apiService = {
       logger.error("There was a problem with the fetch operation:", error);
     }
   },
+  // get all transactions
   async getTransactions() {
     try {
       const response = await fetch(`http://localhost:5000/transactions`);

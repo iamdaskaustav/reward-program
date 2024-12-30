@@ -93,6 +93,7 @@ reward-program/
 │   ├── pages/                 # Different page components of the app
 │   ├── utils/                 # Utility functions and helpers
 │   ├── app.js                 # Main app component
+│   ├── index.html             # Index page components
 │   └── index.js               # Entry point to the application
 ├── .babelrc                   # Babel configuration for transpiling code
 ├── .gitattributes             # Git configuration (to manage line endings, etc.)

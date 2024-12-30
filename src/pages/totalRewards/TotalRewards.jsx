@@ -7,6 +7,7 @@ import NoDataFound from "../../components/NoDataFound";
 import PageBreadcrumb from "../../components/PageBreadcrumb";
 import { logger } from "../../utils/logger";
 
+// columns for header
 const columns = [
   {
     name: "Id",
@@ -78,6 +79,7 @@ const TotalRewards = () => {
     }
   };
 
+  // main controller - get customers and transactions, calculate reward point and map customer
   const getTotalTransactions = (totalCustomer, transactions) => {
     const data = totalCustomer.map((c) => {
       const customerTransactions = transactions.filter((t) => {
