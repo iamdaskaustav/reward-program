@@ -133,12 +133,12 @@ To clone the Git repository to your local machine, follow these steps:
 1.  Open a terminal and run:
 
     ```bash
-    git clone https://github.com/username/repository-name.git
+    git clone https://github.com/iamdaskaustav/reward-program.git
     ```
 
 2.  Change into the project directory:
     ```bash
-    cd repository-name
+    cd reward-program
     ```
 
 ## 5. Setup React Project from Cloned Git Repository
@@ -173,7 +173,33 @@ To lint the project and ensure that the code adheres to the specified coding sta
 
     This will check for linting issues in the code and display them in the terminal.
 
-## 7. Build the Project Using `npm run build` in the `dist` Folder
+## 7. Test the Project Using `npm run test`
+
+To test the project and ensure that the functionality meets the requirements:
+
+1. In the project directory, run:
+
+   ```bash
+   npm run test
+   ```
+
+   This will execute all the test cases defined using Jest and display the results in the terminal.
+
+2. If you want to watch test files for changes and re-run tests automatically, use:
+
+   ```bash
+   npm run test:watch
+   ```
+
+3. To generate a test coverage report, use:
+
+   ```bash
+   npm run test -- --coverage
+   ```
+
+   This will display coverage statistics for your tests, including how much of your code is covered by the tests.
+
+## 8. Build the Project Using `npm run build` in the `dist` Folder
 
 To build the project for production:
 

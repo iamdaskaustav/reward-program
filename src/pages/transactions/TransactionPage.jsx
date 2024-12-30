@@ -119,7 +119,7 @@ const TransacrionPage = () => {
     await getTransactionWithCustomer(customers, transactions);
   };
 
-  // main controller - get customers and transactions, map customer to transactions
+  // main controller - get customers and transactions, map customer to transactions, sort by date
   const getTransactionWithCustomer = (totalCustomer, transactions) => {
     setLoader(true);
     const data = transactions.map((t) => {
