@@ -47,7 +47,6 @@
     "@mui/x-date-pickers": "^7.23.3",
     "dayjs": "^1.11.13",
     "loglevel": "^1.9.2",
-    "projectv5": "file:",
     "prop-types": "^15.8.1",
     "react": "^19.0.0",
     "react-data-table-component": "^7.6.2",
