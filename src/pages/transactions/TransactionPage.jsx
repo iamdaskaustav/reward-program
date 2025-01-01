@@ -56,7 +56,6 @@ const TransacrionPage = () => {
   const [loader, setLoader] = useState(false);
   const [tableData, setTableData] = useState([]);
   const [errorMsg, setErrorMsg] = useState("");
-  const [customers, setCustomers] = useState([]);
   const [startMonth, setStartMonth] = useState(dayjs().subtract(2, "month"));
   const [endMonth, setEndMonth] = useState(dayjs());
 
@@ -69,10 +68,7 @@ const TransacrionPage = () => {
     try {
       setErrorMsg("");
       setLoader(true);
-      const transactions = await getTransactions();
-      const totalCustomer = await getCustomers();
-
-      await getTransactionWithCustomer(totalCustomer, transactions);
+      await getTransactions();
       setLoader(false);
     } catch (err) {
       setLoader(false);
@@ -83,75 +79,25 @@ const TransacrionPage = () => {
     }
   };
 
-  // Get All Customers
-  const getCustomers = async () => {
-    try {
-      const respo = await ApiService.getCustomers();
-      if (respo.length == 0)
-        setErrorMsg("It seems like there’s is no customer data available.");
-      setCustomers(respo);
-      return respo;
-    } catch (err) {
-      logger.error("Error in transactions get customer", err);
-    }
-  };
-
-  // Get Transactions by Seleted Month
+  // get all transactions data
   const getTransactions = async () => {
     try {
       const startOfMonth = dayjs(startMonth).startOf("month").unix();
       const endOfMonth = dayjs(endMonth).endOf("month").unix();
-      const respo = await ApiService.getTransactionsByMonth(
+      const respo = await ApiService.getTotalTransactions(
         startOfMonth,
         endOfMonth
       );
       if (respo.length == 0)
-        setErrorMsg("It seems like there’s is no transactions data available.");
+        setErrorMsg("It seems like there’s is no customer data available.");
+      setTableData(respo);
       return respo;
     } catch (err) {
-      logger.error("Error in transactions get transactions", err);
-    }
-  };
-
-  // month change handler
-  const changeMonth = async () => {
-    const transactions = await getTransactions();
-    await getTransactionWithCustomer(customers, transactions);
-  };
-
-  // main controller - get customers and transactions, map customer to transactions, sort by date
-  const getTransactionWithCustomer = (totalCustomer, transactions) => {
-    setLoader(true);
-    const data = transactions.map((t) => {
-      const customerExists = totalCustomer.find(
-        (c) => Number(c.id) === Number(t.customerId)
+      logger.error("Error in transactions get customer", err);
+      setErrorMsg(
+        "It seems like there’s an error occurred in the transactions"
       );
-      if (customerExists) {
-        t.name = customerExists?.customer_name;
-
-        let points = 0;
-        let transactionAmount = Math.floor(t.product_price);
-        if (transactionAmount <= 0) points = 0;
-        if (transactionAmount == 50) points += 1;
-        if (transactionAmount > 100) {
-          points += 2 * (transactionAmount - 100);
-          transactionAmount = 100;
-        }
-        if (transactionAmount > 50) {
-          points += 1 * (transactionAmount - 50);
-        }
-
-        t.rewardPoints = points;
-      }
-      return t;
-    });
-
-    const sortDataByDate = data.sort(
-      (a, b) => Number(b.purchase_date) - Number(a.purchase_date)
-    );
-    setLoader(false);
-    if (sortDataByDate) setTableData(sortDataByDate);
-    // setTableData([]);
+    }
   };
 
   return (
@@ -207,7 +153,7 @@ const TransacrionPage = () => {
                 fullWidth
                 variant="contained"
                 sx={{ mt: 1, mb: 0, backgroundColor: "#0047AB" }}
-                onClick={changeMonth}
+                onClick={getTransactions}
               >
                 Submit
               </Button>

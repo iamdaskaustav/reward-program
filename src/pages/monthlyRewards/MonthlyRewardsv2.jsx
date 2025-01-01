@@ -37,7 +37,6 @@ const MonthlyRewards = () => {
   const [endMonth, setEndMonth] = useState(dayjs());
   const [loader, setLoader] = useState(false);
   const [tableData, setTableData] = useState([]);
-  const [customers, setCustomers] = useState([]);
   const [errorMsg, setErrorMsg] = useState("");
 
   useEffect(() => {
@@ -49,9 +48,7 @@ const MonthlyRewards = () => {
     try {
       setErrorMsg("");
       setLoader(true);
-      const transactions = await getTransactions();
-      const totalCustomer = await getCustomers();
-      await getMonthlyTransactions(totalCustomer, transactions);
+      await getMonthlyRewards();
       setLoader(false);
     } catch (err) {
       setLoader(false);
@@ -63,146 +60,26 @@ const MonthlyRewards = () => {
   };
 
   // Get All Customers
-  const getCustomers = async () => {
-    try {
-      const respo = await ApiService.getCustomers();
-      if (respo.length == 0)
-        setErrorMsg("It seems like there’s is no customer data available.");
-      setCustomers(respo);
-      return respo;
-    } catch (err) {
-      logger.log("Error in monthly rewards get customer", err);
-    }
-  };
-
-  // Get Transactions by Seleted Month
-  const getTransactions = async () => {
+  const getMonthlyRewards = async () => {
     try {
       const startOfMonth = dayjs(startMonth).startOf("month").unix();
       const endOfMonth = dayjs(endMonth).endOf("month").unix();
-      const respo = await ApiService.getTransactionsByMonth(
+      const respo = await ApiService.getMonthlyRewards(
         startOfMonth,
         endOfMonth
       );
-
       if (respo.length == 0)
-        setErrorMsg("It seems like there’s is no transactions data available.");
+        setErrorMsg(
+          "It seems like there’s is no monthly reward data available."
+        );
+      setTableData(respo);
       return respo;
     } catch (err) {
-      logger.log("Error in monthly rewards get transactions", err);
+      logger.log("Error in monthly rewards get monthly reward", err);
+      setErrorMsg(
+        "It seems like there’s an error occurred in the monthly rewards"
+      );
     }
-  };
-
-  // data change handler
-  const changeMonth = async () => {
-    const transactions = await getTransactions();
-    await getMonthlyTransactions(customers, transactions);
-  };
-
-  // get month range array from startdate and enddate
-  const getMonthsInRange = (startDate, endDate) => {
-    const start = dayjs(startDate);
-    const end = dayjs(endDate);
-
-    const months = [];
-
-    let current = start.startOf("month");
-    while (current.isBefore(end) || current.isSame(end, "month")) {
-      months.push(current.format("YYYY-MM"));
-      current = current.add(1, "month");
-    }
-
-    return months;
-  };
-
-  // calculate total rewards point by providing month list and transactions list and return result in array of objects
-  const accumulateRewardsByMonth = (rewardsByMonth, transactions) => {
-    const monthlyRewardObj = transactions.reduce((acc, transaction) => {
-      const purchaseDate = new Date(transaction.purchase_date * 1000); // Convert Unix timestamp to milliseconds
-      const purchaseMonth = `${purchaseDate.getUTCFullYear()}-${String(
-        purchaseDate.getUTCMonth() + 1
-      ).padStart(2, "0")}`;
-
-      let points = 0;
-
-      let transactionAmount = Math.floor(transaction.product_price);
-
-      if (transactionAmount <= 0) points = 0;
-
-      if (transactionAmount == 50) points += 1;
-
-      if (transactionAmount > 100) {
-        points += 2 * (transactionAmount - 100);
-        transactionAmount = 100;
-      }
-
-      if (transactionAmount > 50) {
-        points += 1 * (transactionAmount - 50);
-      }
-
-      if (acc[purchaseMonth] !== undefined) {
-        acc[purchaseMonth] += points;
-      }
-
-      return acc;
-    }, rewardsByMonth);
-
-    return Object.entries(monthlyRewardObj).map(([month, rewardPoints]) => ({
-      month,
-      rewardPoints,
-    }));
-  };
-
-  // main controller - get customers, separate transaction by customer, set data and sort data by time
-  const getMonthlyTransactions = (totalCustomer, transactions) => {
-    const data = totalCustomer.map((customer) => {
-      const months = getMonthsInRange(startMonth, endMonth).reduce(
-        (acc, month) => ({ ...acc, [month]: 0 }),
-        {}
-      );
-
-      const customerTransactions = transactions.filter(
-        (transaction) => transaction.customerId == customer.id
-      );
-
-      return {
-        ...customer,
-        monthlyRewards: accumulateRewardsByMonth(
-          months,
-          customerTransactions,
-          customer
-        ),
-      };
-    });
-
-    // Flatten the data manually using reduce and add uniquekey
-    const newArr = data.reduce((acc, customer) => {
-      const customerRewards = customer.monthlyRewards.map(
-        ({ month, rewardPoints }) => {
-          const [year, monthNum] = month.split("-");
-          return {
-            id: customer.id,
-            uniqueKey: `${customer.id}${monthNum}${year}`,
-            customer_name: customer.customer_name,
-            year,
-            monthNum,
-            rewardPoints,
-          };
-        }
-      );
-      return acc.concat(customerRewards);
-    }, []);
-
-    const sortedData = newArr.sort((a, b) => {
-      // compare year
-      if (b.year !== a.year) {
-        return b.year - a.year;
-      }
-      // compare months
-      return b.monthNum - a.monthNum;
-    });
-
-    setTableData(sortedData);
   };
 
   return (
@@ -265,7 +142,7 @@ const MonthlyRewards = () => {
                   fullWidth
                   variant="contained"
                   sx={{ mt: 1, mb: 0, backgroundColor: "#0047AB" }}
-                  onClick={changeMonth}
+                  onClick={getMonthlyRewards}
                 >
                   Submit
                 </Button>

@@ -42,9 +42,7 @@ const TotalRewards = () => {
     try {
       setErrorMsg("");
       setLoader(true);
-      const transactions = await getTransaction();
-      const totalCustomer = await getCustomers();
-      await getTotalTransactions(totalCustomer, transactions);
+      await getTotalRewards();
       setLoader(false);
     } catch (err) {
       setLoader(false);
@@ -55,68 +53,19 @@ const TotalRewards = () => {
     }
   };
 
-  // Get All Customers
-  const getCustomers = async () => {
+  // Get All Rewards data
+  const getTotalRewards = async () => {
     try {
-      const respo = await ApiService.getCustomers();
+      const respo = await ApiService.getTotalRewards();
       if (respo.length == 0)
         setErrorMsg("It seems like there’s is no customer data available.");
-      return respo;
+      setTableData(respo);
     } catch (err) {
-      logger.error("Error getting transactions", err);
-    }
-  };
-
-  // Get Transactions by Seleted Month
-  const getTransaction = async () => {
-    try {
-      const respo = await ApiService.getTransactions();
-      if (respo.length == 0)
-        setErrorMsg("It seems like there’s is no transactions data available.");
-      return respo;
-    } catch (err) {
-      logger.error("Error getting transactions", err);
-    }
-  };
-
-  // main controller - get customers and transactions, calculate reward point and map customer
-  const getTotalTransactions = (totalCustomer, transactions) => {
-    const data = totalCustomer.map((c) => {
-      const customerTransactions = transactions.filter((t) => {
-        if (Number(c.id) === Number(t.customerId)) {
-          let points = 0;
-
-          let transactionAmount = Math.floor(t.product_price);
-
-          if (transactionAmount <= 0) points = 0;
-
-          if (transactionAmount == 50) points += 1;
-
-          if (transactionAmount > 100) {
-            points += 2 * (transactionAmount - 100);
-            transactionAmount = 100;
-          }
-
-          if (transactionAmount > 50) {
-            points += 1 * (transactionAmount - 50);
-          }
-
-          t.rewardPoint = points;
-
-          return t;
-        }
-      });
-
-      const re = customerTransactions.reduce(
-        (acc, item) => acc + item.rewardPoint,
-        0
+      setErrorMsg(
+        "It seems like there’s an error occurred in the total rewards"
       );
-
-      c.rewardPoint = re;
-      return c;
-    });
-
-    setTableData(data);
+      logger.error("Error getting transactions", err);
+    }
   };
 
   return (
