@@ -35,7 +35,7 @@ describe("API fetchData", () => {
     });
 
     await expect(apiService.getCustomers()).rejects.toThrow(
-      "Network response was not ok"
+      "Network response was not ok in getCustomers"
     );
   });
 

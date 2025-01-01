@@ -41,62 +41,6 @@ describe("TotalRewards Component", () => {
       product_price: 80.25,
       customerId: 2,
     },
-    {
-      id: 3,
-      purchase_date: 1704076800,
-      product_name: "Mechanical Keyboard",
-      product_price: 250.99,
-      customerId: 3,
-    },
-    {
-      id: 4,
-      purchase_date: 1706755200,
-      product_name: "Bluetooth Headphones",
-      product_price: 300.75,
-      customerId: 4,
-    },
-    {
-      id: 5,
-      purchase_date: 1709347200,
-      product_name: "USB-C Cable",
-      product_price: 15.1,
-      customerId: 5,
-    },
-    {
-      id: 6,
-      purchase_date: 1712025600,
-      product_name: "External Hard Drive",
-      product_price: 349.49,
-      customerId: 6,
-    },
-    {
-      id: 7,
-      purchase_date: 1714617600,
-      product_name: "Portable Charger",
-      product_price: 50.99,
-      customerId: 7,
-    },
-    {
-      id: 8,
-      purchase_date: 1717296000,
-      product_name: "Smartphone Case",
-      product_price: 20.75,
-      customerId: 8,
-    },
-    {
-      id: 9,
-      purchase_date: 1719974400,
-      product_name: "Wireless Earbuds",
-      product_price: 199.99,
-      customerId: 9,
-    },
-    {
-      id: 10,
-      purchase_date: 1722566400,
-      product_name: "Tablet Stand",
-      product_price: 45.2,
-      customerId: 10,
-    },
   ];
 
   beforeEach(() => {
