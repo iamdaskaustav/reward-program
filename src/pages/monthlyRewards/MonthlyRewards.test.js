@@ -6,31 +6,23 @@ import dayjs from "dayjs";
 
 jest.mock("../../apis/index");
 describe("Transaction Component", () => {
-  const mockCustomers = [
+  const mockMonthlyRewardData = [
     {
-      id: 1,
+      id: "1",
+      uniqueKey: "1012025",
       customer_name: "John Doe",
+      year: "2025",
+      monthNum: "01",
+      rewardPoints: 0,
     },
-    {
-      id: 2,
-      customer_name: "Jane Smith",
-    },
-  ];
 
-  const mockTransactions = [
     {
-      id: 1,
-      purchase_date: 1698796800,
-      product_name: "Wireless Mouse",
-      product_price: 120.5,
-      customerId: 1,
-    },
-    {
-      id: 2,
-      purchase_date: 1701398400,
-      product_name: "Laptop Stand",
-      product_price: 80.25,
-      customerId: 2,
+      id: "2",
+      uniqueKey: "2012025",
+      customer_name: "Jane Smith",
+      year: "2025",
+      monthNum: "01",
+      rewardPoints: 0,
     },
   ];
 
@@ -57,13 +49,12 @@ describe("Transaction Component", () => {
     const mockStartMonth = dayjs().subtract(2, "month").startOf("month").unix();
     const mockEndMonth = dayjs().endOf("month").unix();
 
-    ApiService.getCustomers.mockResolvedValue(mockCustomers);
-    ApiService.getTransactionsByMonth.mockResolvedValue(mockTransactions);
+    ApiService.getMonthlyRewards.mockResolvedValue(mockMonthlyRewardData);
 
     render(<MonthlyRewards />);
 
     await waitFor(() => {
-      expect(ApiService.getTransactionsByMonth).toHaveBeenCalledWith(
+      expect(ApiService.getMonthlyRewards).toHaveBeenCalledWith(
         mockStartMonth,
         mockEndMonth
       );
@@ -71,13 +62,12 @@ describe("Transaction Component", () => {
   });
 
   it("should update the table data when a new date range is selected", async () => {
-    ApiService.getTransactionsByMonth.mockResolvedValue(mockTransactions);
-    ApiService.getCustomers.mockResolvedValue(mockCustomers);
+    ApiService.getMonthlyRewards.mockResolvedValue(mockMonthlyRewardData);
 
     render(<MonthlyRewards />);
 
     await waitFor(() =>
-      expect(ApiService.getTransactionsByMonth).toHaveBeenCalled()
+      expect(ApiService.getMonthlyRewards).toHaveBeenCalled()
     );
 
     const startMonthPicker = screen.getByLabelText(/Start Month/i);
@@ -89,14 +79,13 @@ describe("Transaction Component", () => {
     fireEvent.click(submitButton);
 
     await waitFor(() =>
-      expect(ApiService.getTransactionsByMonth).toHaveBeenCalledTimes(2)
+      expect(ApiService.getMonthlyRewards).toHaveBeenCalledTimes(2)
     );
   });
 
   // displays NoDataFound if no data is returned
   test("displays NoDataFound if no data is returned", async () => {
-    ApiService.getCustomers.mockResolvedValueOnce([]);
-    ApiService.getTransactionsByMonth.mockResolvedValueOnce([]);
+    ApiService.getMonthlyRewards.mockResolvedValueOnce([]);
 
     render(<MonthlyRewards />);
 

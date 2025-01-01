@@ -4,43 +4,15 @@ import TotalRewards from "./TotalRewards";
 import ApiService from "../../apis/index";
 
 jest.mock("../../apis/index", () => ({
-  getCustomers: jest.fn(),
-  getTransactions: jest.fn(),
+  // getCustomers: jest.fn(),
+  // getTransactions: jest.fn(),
+  getTotalRewards: jest.fn(),
 }));
 
 describe("TotalRewards Component", () => {
-  const mockCustomers = [
-    { id: 1, customer_name: "John Doe" },
-    { id: 2, customer_name: "Jane Smith" },
-    {
-      id: "3",
-      customer_name: "Michael Johnson",
-    },
-    {
-      id: "4",
-      customer_name: "Emily Davis",
-    },
-    {
-      id: "5",
-      customer_name: "David Miller",
-    },
-  ];
-
-  const mockTransactions = [
-    {
-      id: 1,
-      purchase_date: 1698796800,
-      product_name: "Wireless Mouse",
-      product_price: 120.5,
-      customerId: 1,
-    },
-    {
-      id: 2,
-      purchase_date: 1701398400,
-      product_name: "Laptop Stand",
-      product_price: 80.25,
-      customerId: 2,
-    },
+  const mockRewardData = [
+    { id: "1", customer_name: "John Doe", rewardPoint: 629 },
+    { id: "2", customer_name: "Jane Smith", rewardPoint: 2662 },
   ];
 
   beforeEach(() => {
@@ -49,8 +21,7 @@ describe("TotalRewards Component", () => {
 
   // renders Skeleton component initially
   test("renders Skeleton initially", async () => {
-    ApiService.getCustomers.mockResolvedValueOnce(mockCustomers);
-    ApiService.getTransactions.mockResolvedValueOnce(mockTransactions);
+    ApiService.getTotalRewards.mockResolvedValueOnce(mockRewardData);
 
     render(<TotalRewards />);
 
@@ -63,8 +34,7 @@ describe("TotalRewards Component", () => {
 
   // displays data correctly after loading
   test("displays data correctly after loading", async () => {
-    ApiService.getCustomers.mockResolvedValueOnce(mockCustomers);
-    ApiService.getTransactions.mockResolvedValueOnce(mockTransactions);
+    ApiService.getTotalRewards.mockResolvedValueOnce(mockRewardData);
 
     render(<TotalRewards />);
 
@@ -73,13 +43,13 @@ describe("TotalRewards Component", () => {
       expect(screen.getByText("Jane Smith")).toBeInTheDocument();
     });
 
-    expect(screen.getByText("90")).toBeInTheDocument();
-    expect(screen.getByText("30")).toBeInTheDocument();
+    expect(screen.getByText("629")).toBeInTheDocument();
+    expect(screen.getByText("2662")).toBeInTheDocument();
   });
 
   //   handles API errors
   test("handles API errors", async () => {
-    ApiService.getCustomers.mockRejectedValueOnce(new Error("API Error"));
+    ApiService.getTotalRewards.mockRejectedValueOnce(new Error("API Error"));
 
     render(<TotalRewards />);
 
@@ -94,8 +64,7 @@ describe("TotalRewards Component", () => {
 
   // displays NoDataFound if no data is returned
   test("displays NoDataFound if no data is returned", async () => {
-    ApiService.getCustomers.mockResolvedValueOnce([]);
-    ApiService.getTransactions.mockResolvedValueOnce([]);
+    ApiService.getTotalRewards.mockResolvedValueOnce([]);
 
     render(<TotalRewards />);
 
@@ -106,14 +75,13 @@ describe("TotalRewards Component", () => {
 
   // calculates reward points correctly
   test("calculates reward points correctly", async () => {
-    ApiService.getCustomers.mockResolvedValueOnce(mockCustomers);
-    ApiService.getTransactions.mockResolvedValueOnce(mockTransactions);
+    ApiService.getTotalRewards.mockResolvedValueOnce(mockRewardData);
 
     render(<TotalRewards />);
 
     await waitFor(() => {
-      expect(screen.getByText("90")).toBeInTheDocument();
-      expect(screen.getByText("30")).toBeInTheDocument();
+      expect(screen.getByText("629")).toBeInTheDocument();
+      expect(screen.getByText("2662")).toBeInTheDocument();
     });
   });
 });
