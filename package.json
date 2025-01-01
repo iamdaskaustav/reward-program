@@ -46,6 +46,7 @@
     "@mui/material": "^6.3.0",
     "@mui/x-date-pickers": "^7.23.3",
     "dayjs": "^1.11.13",
+    "jest-fetch-mock": "^3.0.3",
     "loglevel": "^1.9.2",
     "prop-types": "^15.8.1",
     "react": "^19.0.0",
