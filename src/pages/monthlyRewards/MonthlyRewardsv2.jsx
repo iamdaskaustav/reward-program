@@ -76,6 +76,9 @@ const MonthlyRewards = () => {
       return respo;
     } catch (err) {
       logger.log("Error in monthly rewards get monthly reward", err);
+      setErrorMsg(
+        "It seems like there’s an error occurred in the monthly rewards"
+      );
     }
   };
 

@@ -6,6 +6,7 @@ import dayjs from "dayjs";
 
 jest.mock("../../apis/index");
 describe("Transaction Component", () => {
+  // dummy data
   const mockMonthlyRewardData = [
     {
       id: "1",
@@ -13,7 +14,7 @@ describe("Transaction Component", () => {
       customer_name: "John Doe",
       year: "2025",
       monthNum: "01",
-      rewardPoints: 0,
+      rewardPoints: 470,
     },
 
     {
@@ -30,12 +31,14 @@ describe("Transaction Component", () => {
     jest.clearAllMocks();
   });
 
+  // check title loaded or not
   test("renders the title correctly", () => {
     render(<MonthlyRewards />);
     const titleElement = screen.getByText(/Monthly Rewards/i);
     expect(titleElement).toBeInTheDocument();
   });
 
+  // render data field and submit button
   test("renders the date fields and submit button", () => {
     render(<MonthlyRewards />);
 
@@ -59,8 +62,32 @@ describe("Transaction Component", () => {
         mockEndMonth
       );
     });
+
+    await waitFor(() => {
+      expect(screen.getByText("John Doe")).toBeInTheDocument();
+      expect(screen.getByText("Jane Smith")).toBeInTheDocument();
+    });
+
+    expect(screen.getByText("470")).toBeInTheDocument();
+    expect(screen.getByText("0")).toBeInTheDocument();
   });
 
+  //   handles API errors
+  test("handles API errors", async () => {
+    ApiService.getMonthlyRewards.mockRejectedValueOnce(new Error("API Error"));
+
+    render(<MonthlyRewards />);
+
+    await waitFor(() => {
+      expect(
+        screen.getByText(
+          "It seems like there’s an error occurred in the monthly rewards"
+        )
+      ).toBeInTheDocument();
+    });
+  });
+
+  // data update on date range change
   it("should update the table data when a new date range is selected", async () => {
     ApiService.getMonthlyRewards.mockResolvedValue(mockMonthlyRewardData);
 

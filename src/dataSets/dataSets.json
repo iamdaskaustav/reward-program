@@ -775,6 +775,13 @@
       "product_name": "Smartwatch",
       "product_price": 310.44,
       "customerId": 12
+    },
+    {
+      "id": 101,
+      "purchase_date": 1735728522,
+      "product_name": "Smartwatch",
+      "product_price": 310.44,
+      "customerId": 1
     }
   ]
 }

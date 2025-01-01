@@ -4,14 +4,12 @@ import TotalRewards from "./TotalRewards";
 import ApiService from "../../apis/index";
 
 jest.mock("../../apis/index", () => ({
-  // getCustomers: jest.fn(),
-  // getTransactions: jest.fn(),
   getTotalRewards: jest.fn(),
 }));
 
 describe("TotalRewards Component", () => {
   const mockRewardData = [
-    { id: "1", customer_name: "John Doe", rewardPoint: 629 },
+    { id: "1", customer_name: "John Doe", rewardPoint: 1099 },
     { id: "2", customer_name: "Jane Smith", rewardPoint: 2662 },
   ];
 
@@ -43,7 +41,7 @@ describe("TotalRewards Component", () => {
       expect(screen.getByText("Jane Smith")).toBeInTheDocument();
     });
 
-    expect(screen.getByText("629")).toBeInTheDocument();
+    expect(screen.getByText("1099")).toBeInTheDocument();
     expect(screen.getByText("2662")).toBeInTheDocument();
   });
 
@@ -80,7 +78,7 @@ describe("TotalRewards Component", () => {
     render(<TotalRewards />);
 
     await waitFor(() => {
-      expect(screen.getByText("629")).toBeInTheDocument();
+      expect(screen.getByText("1099")).toBeInTheDocument();
       expect(screen.getByText("2662")).toBeInTheDocument();
     });
   });
