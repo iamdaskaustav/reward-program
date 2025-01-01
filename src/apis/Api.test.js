@@ -1,4 +1,4 @@
-global.fetch = jest.fn();
+globalThis.fetch = jest.fn();
 
 import apiService from "./index";
 
