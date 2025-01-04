@@ -32,13 +32,13 @@ const columns = [
     name: "Year",
     selector: (row) => dayjs(row.year).year(),
     wrap: true,
-    center: true,
+    center: "true",
   },
   {
     name: "Reward Points",
     selector: (row) => row.rewardPoints,
     wrap: true,
-    right: true,
+    right: "true",
   },
 ];
 

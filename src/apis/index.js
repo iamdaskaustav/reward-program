@@ -125,14 +125,14 @@ const apiService = {
 
           let points = 0;
           let transactionAmount = Math.floor(t.product_price);
-          if (transactionAmount <= 0) points = 0;
-          if (transactionAmount == 50) points += 1;
+
           if (transactionAmount > 100) {
-            points += 2 * (transactionAmount - 100);
+            points += 2 * (transactionAmount - 100); // Points for amounts over 100
             transactionAmount = 100;
           }
+
           if (transactionAmount > 50) {
-            points += 1 * (transactionAmount - 50);
+            points += transactionAmount - 50; // Points for amounts between 51 and 100
           }
 
           t.rewardPoints = points;
@@ -252,20 +252,15 @@ const apiService = {
       ).padStart(2, "0")}`;
 
       let points = 0;
-
       let transactionAmount = Math.floor(transaction.product_price);
 
-      if (transactionAmount <= 0) points = 0;
-
-      if (transactionAmount == 50) points += 1;
-
       if (transactionAmount > 100) {
-        points += 2 * (transactionAmount - 100);
+        points += 2 * (transactionAmount - 100); // Points for amounts over 100
         transactionAmount = 100;
       }
 
       if (transactionAmount > 50) {
-        points += 1 * (transactionAmount - 50);
+        points += transactionAmount - 50; // Points for amounts between 51 and 100
       }
 
       if (acc[purchaseMonth] !== undefined) {

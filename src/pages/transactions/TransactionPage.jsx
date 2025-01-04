@@ -37,21 +37,21 @@ const columns = [
     selector: (row) => row.product_name,
     sortable: false,
     wrap: true,
-    center: true,
+    center: "true",
   },
   {
     name: "Price",
     selector: (row) => row.product_price,
     sortable: false,
     wrap: true,
-    right: true,
+    right: "true",
   },
   {
     name: "Reward Points",
     selector: (row) => row.rewardPoints,
     sortable: false,
     wrap: true,
-    right: true,
+    right: "true",
   },
 ];
 
