@@ -109,11 +109,17 @@ const Drawer = styled(MuiDrawer, {
 }));
 
 const drawerItems = [
+  // {
+  //   index: 0,
+  //   name: "Dashboard",
+  //   path: "/",
+  //   icon: <HomeIcon />,
+  // },
   {
     index: 0,
-    name: "Dashboard",
-    path: "/",
-    icon: <HomeIcon />,
+    name: "Total Rewards",
+    path: "/total-rewards",
+    icon: <RequestPageIcon />,
   },
   {
     index: 1,
@@ -123,12 +129,6 @@ const drawerItems = [
   },
   {
     index: 2,
-    name: "Total Rewards",
-    path: "/total-rewards",
-    icon: <RequestPageIcon />,
-  },
-  {
-    index: 3,
     name: "Transactions",
     path: "/transaction",
     icon: <AddchartIcon />,
@@ -158,7 +158,7 @@ export default function LayoutPage() {
   useEffect(() => {
     if (location.pathname === "/") {
       setSelectedIndex(0);
-      setPageNavName("Dashboard");
+      setPageNavName("Total Rewards");
     }
 
     const currentPage = drawerItems.find((r) => {

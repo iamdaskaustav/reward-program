@@ -28,8 +28,18 @@ const columns = [
         .format("MMMM"),
     wrap: true,
   },
-  { name: "Year", selector: (row) => dayjs(row.year).year(), wrap: true },
-  { name: "Reward Points", selector: (row) => row.rewardPoints, wrap: true },
+  {
+    name: "Year",
+    selector: (row) => dayjs(row.year).year(),
+    wrap: true,
+    center: true,
+  },
+  {
+    name: "Reward Points",
+    selector: (row) => row.rewardPoints,
+    wrap: true,
+    right: true,
+  },
 ];
 
 const MonthlyRewards = () => {
@@ -117,7 +127,10 @@ const MonthlyRewards = () => {
                     label="Start Month"
                     views={["month", "year"]}
                     value={startMonth}
-                    onChange={(newMonth) => setStartMonth(newMonth)}
+                    onChange={(newMonth) => {
+                      setStartMonth(newMonth);
+                      setEndMonth(dayjs(newMonth).add(2, "month"));
+                    }}
                   />
                 </LocalizationProvider>
               </Box>
@@ -130,6 +143,7 @@ const MonthlyRewards = () => {
                     label="End Month"
                     views={["month", "year"]}
                     value={endMonth}
+                    disabled
                     onChange={(newMonth) => setEndMonth(newMonth)}
                   />
                 </LocalizationProvider>

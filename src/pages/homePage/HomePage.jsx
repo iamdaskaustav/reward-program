@@ -1,9 +1,15 @@
-import React from "react";
+import React, { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import { Container, Typography, Box, Grid2, Paper } from "@mui/material";
 import PageBreadcrumb from "../../components/PageBreadcrumb";
 
 // Main Component
 const NestedTable = () => {
+  const navigate = useNavigate();
+  useEffect(() => {
+    navigate("/total-rewards");
+  }, []);
+
   return (
     <Grid2
       container
@@ -11,7 +17,7 @@ const NestedTable = () => {
       direction="column"
       style={{ minHeight: "100vh" }}
     >
-      <PageBreadcrumb pageName="Dashboard" />
+      {/* <PageBreadcrumb pageName="Dashboard" />
       <Paper
         sx={{
           p: 2,
@@ -39,7 +45,7 @@ const NestedTable = () => {
           </Typography>
           <Box sx={{ height: 100 }} />
         </Container>
-      </Paper>
+      </Paper> */}
     </Grid2>
   );
 };
