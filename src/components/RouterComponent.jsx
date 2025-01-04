@@ -1,12 +1,9 @@
 import React, { lazy, Suspense } from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import LayoutSkeleton from "./LayoutSkeleton";
 
+import LayoutSkeleton from "./LayoutSkeleton";
 const LayoutPage = lazy(() => import("../components/LayoutPage"));
 const HomePage = lazy(() => import("../pages/homePage/HomePage"));
-// const MonthlyRewards = lazy(() =>
-//   import("../pages/monthlyRewards/MonthlyRewards")
-// );
 const MonthlyRewardsv2 = lazy(() =>
   import("../pages/monthlyRewards/MonthlyRewardsv2")
 );
@@ -15,6 +12,9 @@ const TransactionPage = lazy(() =>
   import("../pages/transactions/TransactionPage")
 );
 const NotFoundPage = lazy(() => import("../components/NotFoundPage"));
+// const MonthlyRewards = lazy(() =>
+//   import("../pages/monthlyRewards/MonthlyRewards")
+// );
 
 const RouterComponent = () => {
   return (

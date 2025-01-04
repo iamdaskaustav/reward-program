@@ -1,8 +1,9 @@
-import * as React from "react";
-import { styled, useTheme } from "@mui/material/styles";
+import React, { useEffect, useState } from "react";
+import { Outlet, useLocation, useNavigate } from "react-router-dom";
+// Material Import
 import MuiDrawer from "@mui/material/Drawer";
 import MuiAppBar from "@mui/material/AppBar";
-import { Outlet, useLocation, useNavigate } from "react-router-dom";
+import { styled, useTheme } from "@mui/material/styles";
 import {
   Box,
   Toolbar,
@@ -22,11 +23,10 @@ import {
   ChevronLeft as ChevronLeftIcon,
   ChevronRight as ChevronRightIcon,
   Event as EventIcon,
-  Home as HomeIcon,
   Addchart as AddchartIcon,
   RequestPage as RequestPageIcon,
+  // Home as HomeIcon,
 } from "@mui/icons-material";
-import { useEffect, useState } from "react";
 
 const drawerWidth = 240;
 
