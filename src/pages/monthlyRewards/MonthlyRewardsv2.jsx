@@ -13,6 +13,7 @@ import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 // Service Import
 import ApiService from "../../apis/index";
+import BusinessLogicService from "../../utils/BusinessLogicService";
 
 // columns for table header
 const columns = [
@@ -51,6 +52,7 @@ const MonthlyRewards = () => {
   const [loader, setLoader] = useState(false);
   const [tableData, setTableData] = useState([]);
   const [errorMsg, setErrorMsg] = useState("");
+  const [customers, setCustomers] = useState([]);
 
   useEffect(() => {
     init();
@@ -61,7 +63,9 @@ const MonthlyRewards = () => {
     try {
       setErrorMsg("");
       setLoader(true);
-      await getMonthlyRewards();
+      const customers = await getCustomers();
+      const transactions = await getTransactions();
+      await getMergeData(customers, transactions);
       setLoader(false);
     } catch (err) {
       setLoader(false);
@@ -72,27 +76,70 @@ const MonthlyRewards = () => {
     }
   };
 
-  // Get All Customers
-  const getMonthlyRewards = async () => {
+  // Merge Customer and Transaction
+  const getMergeData = async (customers, transactions) => {
     try {
       const startOfMonth = dayjs(startMonth).startOf("month").unix();
       const endOfMonth = dayjs(endMonth).endOf("month").unix();
-      const respo = await ApiService.getMonthlyRewards(
+      setErrorMsg("");
+      setLoader(true);
+      const data = await BusinessLogicService.getMonthlyRewards(
+        customers,
+        transactions,
         startOfMonth,
         endOfMonth
       );
+      setTableData(data);
+      setLoader(false);
+    } catch (err) {
+      setLoader(false);
+      setErrorMsg(
+        "It seems like there’s an error occurred in the monthly rewards"
+      );
+      logger.error("Error in monthly reward merge data", err);
+    }
+  };
+
+  // get all customer data
+  const getCustomers = async () => {
+    try {
+      const respo = await ApiService.getCustomers();
       if (respo.length == 0)
-        setErrorMsg(
-          "It seems like there’s is no monthly reward data available."
-        );
-      setTableData(respo);
+        setErrorMsg("It seems like there’s is no customer data available.");
+      setCustomers(respo);
       return respo;
     } catch (err) {
-      logger.log("Error in monthly rewards get monthly reward", err);
+      logger.error("Error in  monthly reward get customer", err);
       setErrorMsg(
         "It seems like there’s an error occurred in the monthly rewards"
       );
     }
+  };
+
+  // get all transactions data
+  const getTransactions = async () => {
+    try {
+      const startOfMonth = dayjs(startMonth).startOf("month").unix();
+      const endOfMonth = dayjs(endMonth).endOf("month").unix();
+      const respo = await ApiService.getTransactionsByMonth(
+        startOfMonth,
+        endOfMonth
+      );
+      if (respo.length == 0)
+        setErrorMsg("It seems like there’s is no Transaction data available.");
+      return respo;
+    } catch (err) {
+      logger.error("Error in  monthly reward get transactions", err);
+      setErrorMsg(
+        "It seems like there’s an error occurred in the monthly rewards"
+      );
+    }
+  };
+
+  // change month handler
+  const changeMonth = async () => {
+    const transactions = await getTransactions();
+    await getMergeData(customers, transactions);
   };
 
   return (
@@ -159,7 +206,7 @@ const MonthlyRewards = () => {
                   fullWidth
                   variant="contained"
                   sx={{ mt: 1, mb: 0, backgroundColor: "#0047AB" }}
-                  onClick={getMonthlyRewards}
+                  onClick={changeMonth}
                 >
                   Submit
                 </Button>
