@@ -3,7 +3,7 @@ import dayjs from "dayjs";
 
 const apiService = {
   // get Total Rewards business logic
-  async getTotalRewards(customers, transactions) {
+  getTotalRewards(customers, transactions) {
     try {
       const data = customers.map((c) => {
         const customerTransactions = transactions.filter((t) => {
@@ -45,14 +45,8 @@ const apiService = {
     }
   },
   // get total transactions logic
-  async getTotalTransactions(customers, transactions) {
+  getTotalTransactions(customers, transactions) {
     try {
-      //   const customers = await this.getCustomers();
-      //   const transactions = await this.getTransactionsByMonth(
-      //     startDate,
-      //     endDate
-      //   );
-
       const data = transactions.map((t) => {
         const customerExists = customers.find(
           (c) => Number(c.id) === Number(t.customerId)
@@ -91,8 +85,7 @@ const apiService = {
     }
   },
   // get monthly rewars logic
-  async getMonthlyRewards(totalCustomer, transactions, startMonth, endMonth) {
-    console.log("hi111");
+  getMonthlyRewards(totalCustomer, transactions, startMonth, endMonth) {
     const data = totalCustomer.map((customer) => {
       const months = this.getMonthsInRange(startMonth, endMonth).reduce(
         (acc, month) => ({ ...acc, [month]: 0 }),

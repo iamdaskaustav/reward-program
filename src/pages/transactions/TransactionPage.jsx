@@ -98,7 +98,6 @@ const TransacrionPage = () => {
         customers,
         transactions
       );
-      // console.log("merge", data);
       setTableData(data);
       setLoader(false);
     } catch (err) {
@@ -116,7 +115,6 @@ const TransacrionPage = () => {
       const respo = await ApiService.getCustomers();
       if (respo.length == 0)
         setErrorMsg("It seems like there’s is no customer data available.");
-      // console.log("customer", respo);
       setCustomers(respo);
       return respo;
     } catch (err) {
@@ -136,7 +134,6 @@ const TransacrionPage = () => {
         startOfMonth,
         endOfMonth
       );
-      // console.log("transactions", respo);
       if (respo.length == 0)
         setErrorMsg("It seems like there’s is no Transaction data available.");
       return respo;

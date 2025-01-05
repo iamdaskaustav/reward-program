@@ -113,19 +113,25 @@ reward-program/
 
 To start the `json-server` in the main project directory:
 
-1.  Navigate to the project’s root directory:
+1. Install `json-server` globally
 
-    ```bash
-    cd /path/to/your/reward-program
-    ```
+   ```bash
+   npm -g install json-server
+   ```
 
-2.  Run the `json-server` with:
+2. Navigate to the project’s root directory:
 
-    ```bash
-    npx json-server --watch public/dataSets/dataSets.json --port 5000
-    ```
+   ```bash
+   cd /path/to/your/reward-program
+   ```
 
-    This will start a mock API server, watching the `db.json` file on port 5000. You can now interact with the mock API through this server.
+3. Run the `json-server` with:
+
+   ```bash
+   npx json-server --watch public/dataSets/dataSets.json --port 5000
+   ```
+
+   This will start a mock API server, watching the `db.json` file on port 5000. You can now interact with the mock API through this server.
 
 ## 4. Clone Git Repository
 

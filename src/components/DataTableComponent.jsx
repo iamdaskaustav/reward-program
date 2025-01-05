@@ -80,8 +80,16 @@ DataTableComponent.propTypes = {
           PropTypes.bool,
         ]),
         wrap: PropTypes.oneOfType([PropTypes.oneOf([null]), PropTypes.bool]),
-        center: PropTypes.string,
-        right: PropTypes.string,
+        center: PropTypes.oneOfType([
+          PropTypes.oneOf([null]),
+          PropTypes.string,
+          PropTypes.bool,
+        ]),
+        right: PropTypes.oneOfType([
+          PropTypes.oneOf([null]),
+          PropTypes.string,
+          PropTypes.bool,
+        ]),
       }),
     ])
   ).isRequired,
