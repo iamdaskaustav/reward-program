@@ -1,8 +1,9 @@
-import * as React from "react";
-import { styled, useTheme } from "@mui/material/styles";
+import React, { useEffect, useState } from "react";
+import { Outlet, useLocation, useNavigate } from "react-router-dom";
+// Material Import
 import MuiDrawer from "@mui/material/Drawer";
 import MuiAppBar from "@mui/material/AppBar";
-import { Outlet, useLocation, useNavigate } from "react-router-dom";
+import { styled, useTheme } from "@mui/material/styles";
 import {
   Box,
   Toolbar,
@@ -22,11 +23,10 @@ import {
   ChevronLeft as ChevronLeftIcon,
   ChevronRight as ChevronRightIcon,
   Event as EventIcon,
-  Home as HomeIcon,
   Addchart as AddchartIcon,
   RequestPage as RequestPageIcon,
+  // Home as HomeIcon,
 } from "@mui/icons-material";
-import { useEffect, useState } from "react";
 
 const drawerWidth = 240;
 
@@ -109,11 +109,17 @@ const Drawer = styled(MuiDrawer, {
 }));
 
 const drawerItems = [
+  // {
+  //   index: 0,
+  //   name: "Dashboard",
+  //   path: "/",
+  //   icon: <HomeIcon />,
+  // },
   {
     index: 0,
-    name: "Dashboard",
-    path: "/",
-    icon: <HomeIcon />,
+    name: "Total Rewards",
+    path: "/total-rewards",
+    icon: <RequestPageIcon />,
   },
   {
     index: 1,
@@ -123,12 +129,6 @@ const drawerItems = [
   },
   {
     index: 2,
-    name: "Total Rewards",
-    path: "/total-rewards",
-    icon: <RequestPageIcon />,
-  },
-  {
-    index: 3,
     name: "Transactions",
     path: "/transaction",
     icon: <AddchartIcon />,
@@ -158,7 +158,7 @@ export default function LayoutPage() {
   useEffect(() => {
     if (location.pathname === "/") {
       setSelectedIndex(0);
-      setPageNavName("Dashboard");
+      setPageNavName("Total Rewards");
     }
 
     const currentPage = drawerItems.find((r) => {

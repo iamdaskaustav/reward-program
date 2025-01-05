@@ -1,11 +1,15 @@
 import React, { useState, useEffect } from "react";
-import { Grid2 } from "@mui/material";
-import TableSkeleton from "../../components/TableSkeleton";
+import { logger } from "../../utils/logger";
+// Component Import
 import DataTableComponent from "../../components/DataTableComponent";
-import ApiService from "../../apis/index";
+import TableSkeleton from "../../components/TableSkeleton";
 import NoDataFound from "../../components/NoDataFound";
 import PageBreadcrumb from "../../components/PageBreadcrumb";
-import { logger } from "../../utils/logger";
+// Material Import
+import { Grid2 } from "@mui/material";
+// Service Import
+import ApiService from "../../apis/index";
+import BusinessLogicService from "../../utils/BusinessLogicService";
 
 // columns for header
 const columns = [
@@ -34,37 +38,73 @@ const TotalRewards = () => {
   const [errorMsg, setErrorMsg] = useState("");
 
   useEffect(() => {
+    // Init Functions
+    const init = async () => {
+      try {
+        setErrorMsg("");
+        setLoader(true);
+        const customers = await getCustomers();
+        const transactions = await getTransactions();
+        await getMergeData(customers, transactions);
+        setLoader(false);
+      } catch (err) {
+        setLoader(false);
+        setErrorMsg(
+          "It seems like there’s an error occurred in the total rewards"
+        );
+        logger.error("Error in total rewards", err);
+      }
+    };
     init();
   }, []);
 
-  // Init Functions
-  const init = async () => {
+  // Merge Customer and Transaction
+  const getMergeData = async (customers, transactions) => {
     try {
       setErrorMsg("");
       setLoader(true);
-      await getTotalRewards();
+      const data = await BusinessLogicService.getTotalRewards(
+        customers,
+        transactions
+      );
+      setTableData(data);
       setLoader(false);
     } catch (err) {
       setLoader(false);
       setErrorMsg(
         "It seems like there’s an error occurred in the total rewards"
       );
-      logger.error("Error in total rewards", err);
+      logger.error("Error in the total rewards merge data", err);
     }
   };
 
-  // Get All Rewards data
-  const getTotalRewards = async () => {
+  // get all customer data
+  const getCustomers = async () => {
     try {
-      const respo = await ApiService.getTotalRewards();
+      const respo = await ApiService.getCustomers();
       if (respo.length == 0)
         setErrorMsg("It seems like there’s is no customer data available.");
-      setTableData(respo);
+      return respo;
     } catch (err) {
+      logger.error("Error in the total rewards get customer", err);
       setErrorMsg(
         "It seems like there’s an error occurred in the total rewards"
       );
-      logger.error("Error getting transactions", err);
+    }
+  };
+
+  // get all transactions data
+  const getTransactions = async () => {
+    try {
+      const respo = await ApiService.getTransactions();
+      if (respo.length == 0)
+        setErrorMsg("It seems like there’s is no Transaction data available.");
+      return respo;
+    } catch (err) {
+      logger.error("Error in the total rewards get transactions", err);
+      setErrorMsg(
+        "It seems like there’s an error occurred in the total rewards"
+      );
     }
   };
 

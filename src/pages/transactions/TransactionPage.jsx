@@ -1,15 +1,19 @@
 import React, { useState, useEffect } from "react";
-import { Box, Grid2, Button, Paper } from "@mui/material";
+import { logger } from "../../utils/logger";
 import dayjs from "dayjs";
-import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
-import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
-import { DatePicker } from "@mui/x-date-pickers/DatePicker";
+// Component Import
 import DataTableComponent from "../../components/DataTableComponent";
 import NoDataFound from "../../components/NoDataFound";
 import TableSkeleton from "../../components/TableSkeleton";
-import ApiService from "../../apis/index";
 import PageBreadcrumb from "../../components/PageBreadcrumb";
-import { logger } from "../../utils/logger";
+// Material Import
+import { Box, Grid2, Button, Paper } from "@mui/material";
+import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
+import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
+import { DatePicker } from "@mui/x-date-pickers/DatePicker";
+// Service Import
+import ApiService from "../../apis/index";
+import BusinessLogicService from "../../utils/BusinessLogicService";
 
 // columns for header
 const columns = [
@@ -37,18 +41,21 @@ const columns = [
     selector: (row) => row.product_name,
     sortable: false,
     wrap: true,
+    center: "true",
   },
   {
-    name: "Price",
+    name: "Price($)",
     selector: (row) => row.product_price,
     sortable: false,
     wrap: true,
+    right: "true",
   },
   {
     name: "Reward Points",
     selector: (row) => row.rewardPoints,
     sortable: false,
     wrap: true,
+    right: "true",
   },
 ];
 
@@ -58,6 +65,7 @@ const TransacrionPage = () => {
   const [errorMsg, setErrorMsg] = useState("");
   const [startMonth, setStartMonth] = useState(dayjs().subtract(2, "month"));
   const [endMonth, setEndMonth] = useState(dayjs());
+  const [customers, setCustomers] = useState([]);
 
   useEffect(() => {
     init();
@@ -68,7 +76,9 @@ const TransacrionPage = () => {
     try {
       setErrorMsg("");
       setLoader(true);
-      await getTransactions();
+      const customers = await getCustomers();
+      const transactions = await getTransactions();
+      await getMergeData(customers, transactions);
       setLoader(false);
     } catch (err) {
       setLoader(false);
@@ -79,18 +89,33 @@ const TransacrionPage = () => {
     }
   };
 
-  // get all transactions data
-  const getTransactions = async () => {
+  // Merge Customer and Transaction
+  const getMergeData = async (customers, transactions) => {
     try {
-      const startOfMonth = dayjs(startMonth).startOf("month").unix();
-      const endOfMonth = dayjs(endMonth).endOf("month").unix();
-      const respo = await ApiService.getTotalTransactions(
-        startOfMonth,
-        endOfMonth
+      setErrorMsg("");
+      setLoader(true);
+      const data = await BusinessLogicService.getTotalTransactions(
+        customers,
+        transactions
       );
+      setTableData(data);
+      setLoader(false);
+    } catch (err) {
+      setLoader(false);
+      setErrorMsg(
+        "It seems like there’s an error occurred in the transactions"
+      );
+      logger.error("Error in Transaction merge data", err);
+    }
+  };
+
+  // get all customer data
+  const getCustomers = async () => {
+    try {
+      const respo = await ApiService.getCustomers();
       if (respo.length == 0)
         setErrorMsg("It seems like there’s is no customer data available.");
-      setTableData(respo);
+      setCustomers(respo);
       return respo;
     } catch (err) {
       logger.error("Error in transactions get customer", err);
@@ -98,6 +123,31 @@ const TransacrionPage = () => {
         "It seems like there’s an error occurred in the transactions"
       );
     }
+  };
+
+  // get all transactions data
+  const getTransactions = async () => {
+    try {
+      const startOfMonth = dayjs(startMonth).startOf("month").unix();
+      const endOfMonth = dayjs(endMonth).endOf("month").unix();
+      const respo = await ApiService.getTransactionsByMonth(
+        startOfMonth,
+        endOfMonth
+      );
+      if (respo.length == 0)
+        setErrorMsg("It seems like there’s is no Transaction data available.");
+      return respo;
+    } catch (err) {
+      logger.error("Error in transactions get transactions", err);
+      setErrorMsg(
+        "It seems like there’s an error occurred in the transactions"
+      );
+    }
+  };
+
+  const changeMonth = async () => {
+    const transactions = await getTransactions();
+    await getMergeData(customers, transactions);
   };
 
   return (
@@ -153,7 +203,7 @@ const TransacrionPage = () => {
                 fullWidth
                 variant="contained"
                 sx={{ mt: 1, mb: 0, backgroundColor: "#0047AB" }}
-                onClick={getTransactions}
+                onClick={changeMonth}
               >
                 Submit
               </Button>

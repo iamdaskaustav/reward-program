@@ -1,15 +1,19 @@
 import React, { useState, useEffect } from "react";
-import { Box, Grid2, Button, Paper } from "@mui/material";
-import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import dayjs from "dayjs";
-import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
-import { DatePicker } from "@mui/x-date-pickers/DatePicker";
+import { logger } from "../../utils/logger";
+// Component Import
+import NoDataFound from "../../components/NoDataFound";
 import TableSkeleton from "../../components/TableSkeleton";
 import DataTableComponent from "../../components/DataTableComponent";
-import ApiService from "../../apis/index";
-import NoDataFound from "../../components/NoDataFound";
 import PageBreadcrumb from "../../components/PageBreadcrumb";
-import { logger } from "../../utils/logger";
+// Material Import
+import { Box, Grid2, Button, Paper } from "@mui/material";
+import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
+import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
+import { DatePicker } from "@mui/x-date-pickers/DatePicker";
+// Service Import
+import ApiService from "../../apis/index";
+import BusinessLogicService from "../../utils/BusinessLogicService";
 
 // columns for table header
 const columns = [
@@ -28,8 +32,18 @@ const columns = [
         .format("MMMM"),
     wrap: true,
   },
-  { name: "Year", selector: (row) => dayjs(row.year).year(), wrap: true },
-  { name: "Reward Points", selector: (row) => row.rewardPoints, wrap: true },
+  {
+    name: "Year",
+    selector: (row) => dayjs(row.year).year(),
+    wrap: true,
+    center: "true",
+  },
+  {
+    name: "Reward Points",
+    selector: (row) => row.rewardPoints,
+    wrap: true,
+    right: "true",
+  },
 ];
 
 const MonthlyRewards = () => {
@@ -38,6 +52,7 @@ const MonthlyRewards = () => {
   const [loader, setLoader] = useState(false);
   const [tableData, setTableData] = useState([]);
   const [errorMsg, setErrorMsg] = useState("");
+  const [customers, setCustomers] = useState([]);
 
   useEffect(() => {
     init();
@@ -48,7 +63,9 @@ const MonthlyRewards = () => {
     try {
       setErrorMsg("");
       setLoader(true);
-      await getMonthlyRewards();
+      const customers = await getCustomers();
+      const transactions = await getTransactions();
+      await getMergeData(customers, transactions);
       setLoader(false);
     } catch (err) {
       setLoader(false);
@@ -59,27 +76,70 @@ const MonthlyRewards = () => {
     }
   };
 
-  // Get All Customers
-  const getMonthlyRewards = async () => {
+  // Merge Customer and Transaction
+  const getMergeData = async (customers, transactions) => {
     try {
       const startOfMonth = dayjs(startMonth).startOf("month").unix();
       const endOfMonth = dayjs(endMonth).endOf("month").unix();
-      const respo = await ApiService.getMonthlyRewards(
+      setErrorMsg("");
+      setLoader(true);
+      const data = await BusinessLogicService.getMonthlyRewards(
+        customers,
+        transactions,
         startOfMonth,
         endOfMonth
       );
+      setTableData(data);
+      setLoader(false);
+    } catch (err) {
+      setLoader(false);
+      setErrorMsg(
+        "It seems like there’s an error occurred in the monthly rewards"
+      );
+      logger.error("Error in monthly reward merge data", err);
+    }
+  };
+
+  // get all customer data
+  const getCustomers = async () => {
+    try {
+      const respo = await ApiService.getCustomers();
       if (respo.length == 0)
-        setErrorMsg(
-          "It seems like there’s is no monthly reward data available."
-        );
-      setTableData(respo);
+        setErrorMsg("It seems like there’s is no customer data available.");
+      setCustomers(respo);
       return respo;
     } catch (err) {
-      logger.log("Error in monthly rewards get monthly reward", err);
+      logger.error("Error in  monthly reward get customer", err);
       setErrorMsg(
         "It seems like there’s an error occurred in the monthly rewards"
       );
     }
+  };
+
+  // get all transactions data
+  const getTransactions = async () => {
+    try {
+      const startOfMonth = dayjs(startMonth).startOf("month").unix();
+      const endOfMonth = dayjs(endMonth).endOf("month").unix();
+      const respo = await ApiService.getTransactionsByMonth(
+        startOfMonth,
+        endOfMonth
+      );
+      if (respo.length == 0)
+        setErrorMsg("It seems like there’s is no Transaction data available.");
+      return respo;
+    } catch (err) {
+      logger.error("Error in  monthly reward get transactions", err);
+      setErrorMsg(
+        "It seems like there’s an error occurred in the monthly rewards"
+      );
+    }
+  };
+
+  // change month handler
+  const changeMonth = async () => {
+    const transactions = await getTransactions();
+    await getMergeData(customers, transactions);
   };
 
   return (
@@ -117,7 +177,10 @@ const MonthlyRewards = () => {
                     label="Start Month"
                     views={["month", "year"]}
                     value={startMonth}
-                    onChange={(newMonth) => setStartMonth(newMonth)}
+                    onChange={(newMonth) => {
+                      setStartMonth(newMonth);
+                      setEndMonth(dayjs(newMonth).add(2, "month"));
+                    }}
                   />
                 </LocalizationProvider>
               </Box>
@@ -130,6 +193,7 @@ const MonthlyRewards = () => {
                     label="End Month"
                     views={["month", "year"]}
                     value={endMonth}
+                    disabled
                     onChange={(newMonth) => setEndMonth(newMonth)}
                   />
                 </LocalizationProvider>
@@ -142,7 +206,7 @@ const MonthlyRewards = () => {
                   fullWidth
                   variant="contained"
                   sx={{ mt: 1, mb: 0, backgroundColor: "#0047AB" }}
-                  onClick={getMonthlyRewards}
+                  onClick={changeMonth}
                 >
                   Submit
                 </Button>

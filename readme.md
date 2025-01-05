@@ -84,12 +84,13 @@ This should display the installed versions of Node.js and npm.
 reward-program/
 ├── dist/                      # Compiled and bundled output (e.g., Webpack build files)
 ├── node_modules/              # Installed npm packages
+├── public/                    # Public assets (e.g., images, datasets)
+│   ├── assets/                # All static assets like styles or images
+│   └── dataSets/              # Dummy JSON datasets for development/testing
 ├── src/                       # Source code files for the application
 │   ├── apis/                  # API requests and utilities
 │   │   └── index.js           # List all API requests
-│   ├── assets/                # All static assets like styles or images
 │   ├── components/            # Reusable UI components
-│   ├── dataSets/              # Dummy JSON datasets for development/testing
 │   ├── pages/                 # Different page components of the app
 │   ├── utils/                 # Utility functions and helpers
 │   ├── app.js                 # Main app component
@@ -112,19 +113,25 @@ reward-program/
 
 To start the `json-server` in the main project directory:
 
-1.  Navigate to the project’s root directory:
+1. Install `json-server` globally
 
-    ```bash
-    cd /path/to/your/reward-program
-    ```
+   ```bash
+   npm -g install json-server
+   ```
 
-2.  Run the `json-server` with:
+2. Navigate to the project’s root directory:
 
-    ```bash
-    npx json-server --watch src/dataSets/dataSets.json --port 5000
-    ```
+   ```bash
+   cd /path/to/your/reward-program
+   ```
 
-    This will start a mock API server, watching the `db.json` file on port 5000. You can now interact with the mock API through this server.
+3. Run the `json-server` with:
+
+   ```bash
+   npx json-server --watch public/dataSets/dataSets.json --port 5000
+   ```
+
+   This will start a mock API server, watching the `db.json` file on port 5000. You can now interact with the mock API through this server.
 
 ## 4. Clone Git Repository
 
@@ -217,40 +224,40 @@ To build the project for production:
 
 1. Dashboard without sidebar open
 
-<img src="./src/assets/images/dashboard.png" alt="Project Screenshot" width="800" height="400" />
+<img src="./public/assets/images/dashboard.png" alt="Project Screenshot" width="800" height="400" />
 
 2. Dashboard sidebar open
 
-<img src="./src/assets/images/dashboard-sidebar.png" alt="Project Screenshot" width="800" height="400" />
+<img src="./public/assets/images/dashboard-sidebar.png" alt="Project Screenshot" width="800" height="400" />
 
 3. Page initial loading or after date change submit loading
 
-<img src="./src/assets/images/transaction-page-load.png" alt="Project Screenshot" width="800" height="400" />
+<img src="./public/assets/images/transaction-page-load.png" alt="Project Screenshot" width="800" height="400" />
 
 4. Monthly Reward page with data
 
-<img src="./src/assets/images/monthlyReward.png" alt="Project Screenshot" width="800" height="400" />
+<img src="./public/assets/images/monthlyReward.png" alt="Project Screenshot" width="800" height="400" />
 
 5. Monthly Reward page with error message
 
-<img src="./src/assets/images/monthlyReward-api error.png" alt="Project Screenshot" width="800" height="400" />
+<img src="./public/assets/images/monthlyReward-api error.png" alt="Project Screenshot" width="800" height="400" />
 
 6. Total Reward page with data
 
-<img src="./src/assets/images/totalReward.png" alt="Project Screenshot" width="800" height="400" />
+<img src="./public/assets/images/totalReward.png" alt="Project Screenshot" width="800" height="400" />
 
 7. Total Reward page with error message
 
-<img src="./src/assets/images/totalReward-api-error.png" alt="Project Screenshot" width="800" height="400" />
+<img src="./public/assets/images/totalReward-api-error.png" alt="Project Screenshot" width="800" height="400" />
 
 8. Transaction page with data
 
-<img src="./src/assets/images/transaction.png" alt="Project Screenshot" width="800" height="400" />
+<img src="./public/assets/images/transaction.png" alt="Project Screenshot" width="800" height="400" />
 
 9. Transaction page with no data message
 
-<img src="./src/assets/images/transaction-no-data.png" alt="Project Screenshot" width="800" height="400" />
+<img src="./public/assets/images/transaction-no-data.png" alt="Project Screenshot" width="800" height="400" />
 
 10. Transaction page with error message
 
-<img src="./src/assets/images/transaction-api-error.png" alt="Project Screenshot" width="800" height="400" />
+<img src="./public/assets/images/transaction-api-error.png" alt="Project Screenshot" width="800" height="400" />

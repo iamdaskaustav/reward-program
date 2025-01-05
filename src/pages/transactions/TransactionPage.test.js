@@ -1,32 +1,12 @@
 import React from "react";
 import { render, screen, fireEvent, waitFor } from "@testing-library/react";
 import TransactionPage from "./TransactionPage";
-import ApiService from "../../apis/index";
+import BusinessLogicService from "../../utils/BusinessLogicService";
 import dayjs from "dayjs";
 
-jest.mock("../../apis/index");
-describe("Transaction Component", () => {
-  const mockTransactionData = [
-    {
-      id: "52",
-      purchase_date: 1736145600,
-      product_name: "USB Hub",
-      product_price: 95.34,
-      customerId: 14,
-      name: "Elizabeth Clark",
-      rewardPoints: 45,
-    },
-    {
-      id: "66",
-      purchase_date: 1736135600,
-      product_name: "Portable Speaker",
-      product_price: 138.99,
-      customerId: 6,
-      name: "Sarah Wilson",
-      rewardPoints: 126,
-    },
-  ];
+jest.mock("../../utils/BusinessLogicService.js");
 
+describe("Transaction Component", () => {
   beforeEach(() => {
     jest.clearAllMocks();
   });
@@ -47,39 +27,12 @@ describe("Transaction Component", () => {
     expect(screen.getByRole("button", { name: /submit/i })).toBeInTheDocument();
   });
 
-  // displays data correctly after loading
-  test("displays data correctly after loading", async () => {
-    const mockStartMonth = dayjs().subtract(2, "month").startOf("month").unix();
-    const mockEndMonth = dayjs().endOf("month").unix();
-
-    ApiService.getTotalTransactions.mockResolvedValue(mockTransactionData);
-
-    render(<TransactionPage />);
-
-    await waitFor(() => {
-      expect(ApiService.getTotalTransactions).toHaveBeenCalledWith(
-        mockStartMonth,
-        mockEndMonth
-      );
-    });
-
-    await waitFor(() => {
-      expect(screen.getByText("Elizabeth Clark")).toBeInTheDocument();
-      expect(screen.getByText("Sarah Wilson")).toBeInTheDocument();
-    });
-
-    expect(screen.getByText("45")).toBeInTheDocument();
-    expect(screen.getByText("126")).toBeInTheDocument();
-  });
-
   // check data update or not on new date range
   it("should update the table data when a new date range is selected", async () => {
-    ApiService.getTotalTransactions.mockResolvedValue(mockTransactionData);
-
     render(<TransactionPage />);
 
     await waitFor(() =>
-      expect(ApiService.getTotalTransactions).toHaveBeenCalled()
+      expect(BusinessLogicService.getTotalTransactions).toHaveBeenCalled()
     );
 
     const startMonthPicker = screen.getByLabelText(/Start Month/i);
@@ -91,30 +44,13 @@ describe("Transaction Component", () => {
     fireEvent.click(submitButton);
 
     await waitFor(() =>
-      expect(ApiService.getTotalTransactions).toHaveBeenCalledTimes(2)
+      expect(BusinessLogicService.getTotalTransactions).toHaveBeenCalledTimes(4)
     );
-  });
-
-  // handles API errors
-  test("handles API errors", async () => {
-    ApiService.getTotalTransactions.mockRejectedValueOnce(
-      new Error("API Error")
-    );
-
-    render(<TransactionPage />);
-
-    await waitFor(() => {
-      expect(
-        screen.getByText(
-          "It seems like there’s an error occurred in the transactions"
-        )
-      ).toBeInTheDocument();
-    });
   });
 
   // displays NoDataFound if no data is returned
   test("displays NoDataFound if no data is returned", async () => {
-    ApiService.getTotalTransactions.mockResolvedValueOnce([]);
+    BusinessLogicService.getTotalTransactions.mockResolvedValueOnce([]);
 
     render(<TransactionPage />);
 

@@ -37,9 +37,9 @@ const DataTableComponent = React.memo(
           expandableRowsComponent={
             haveExpandableRows ? ExpandedComponent : undefined
           }
-          paginationPerPage="5"
+          paginationPerPage="10"
           keyField={uniqueKey}
-          paginationRowsPerPageOptions={[5, 10, 15, 50, 100]}
+          paginationRowsPerPageOptions={[5, 10, 25, 50]}
         />
       </div>
     );
@@ -80,6 +80,16 @@ DataTableComponent.propTypes = {
           PropTypes.bool,
         ]),
         wrap: PropTypes.oneOfType([PropTypes.oneOf([null]), PropTypes.bool]),
+        center: PropTypes.oneOfType([
+          PropTypes.oneOf([null]),
+          PropTypes.string,
+          PropTypes.bool,
+        ]),
+        right: PropTypes.oneOfType([
+          PropTypes.oneOf([null]),
+          PropTypes.string,
+          PropTypes.bool,
+        ]),
       }),
     ])
   ).isRequired,
