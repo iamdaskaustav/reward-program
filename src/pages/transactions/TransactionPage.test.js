@@ -1,8 +1,7 @@
 import React from "react";
-import { render, screen, fireEvent, waitFor } from "@testing-library/react";
+import { render, screen, waitFor } from "@testing-library/react";
 import TransactionPage from "./TransactionPage";
 import BusinessLogicService from "../../utils/BusinessLogicService";
-import dayjs from "dayjs";
 
 jest.mock("../../utils/BusinessLogicService.js");
 
