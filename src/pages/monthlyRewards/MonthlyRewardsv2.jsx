@@ -26,17 +26,21 @@ const columns = [
   { name: "Name", selector: (row) => row.customer_name, wrap: true },
   {
     name: "Month",
-    selector: (row) =>
+    selector: (row) => row.monthNum,
+    wrap: true,
+    sortable: true,
+    format: (row) =>
       dayjs()
         .month(row.monthNum - 1)
         .format("MMMM"),
-    wrap: true,
   },
   {
     name: "Year",
-    selector: (row) => dayjs(row.year).year(),
+    selector: (row) => row.year,
     wrap: true,
     center: "true",
+    sortable: true,
+    format: (row) => dayjs(row.year).year(),
   },
   {
     name: "Reward Points",
