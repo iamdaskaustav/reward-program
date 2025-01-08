@@ -1,37 +1,43 @@
 import { logger } from "../utils/logger";
 import dayjs from "dayjs";
 
-const apiService = {
+const businessLogicService = {
+  // calculate rewards points
+  calculateRewardPoint(price) {
+    let points = 0;
+    let transactionAmount = Math.floor(price);
+
+    if (transactionAmount > 100) {
+      points += 2 * (transactionAmount - 100); // Points for amounts over 100
+      transactionAmount = 100;
+    }
+
+    if (transactionAmount > 50) {
+      points += transactionAmount - 50; // Points for amounts between 51 and 100
+    }
+
+    return points;
+  },
+
   // get Total Rewards business logic
   getTotalRewards(customers, transactions) {
     try {
       const data = customers.map((c) => {
+        // Get all transactions by customerId using filter, calculate each transactions reward point and map into transactions
         const customerTransactions = transactions.filter((t) => {
           if (Number(c.id) === Number(t.customerId)) {
-            let points = 0;
-            let transactionAmount = Math.floor(t.product_price);
-
-            if (transactionAmount > 100) {
-              points += 2 * (transactionAmount - 100); // Points for amounts over 100
-              transactionAmount = 100;
-            }
-
-            if (transactionAmount > 50) {
-              points += transactionAmount - 50; // Points for amounts between 51 and 100
-            }
-
-            t.rewardPoint = points;
-
+            t.rewardPoint = this.calculateRewardPoint(t.product_price);
             return t;
           }
         });
 
-        const re = customerTransactions.reduce(
+        // Accumulate total reward points
+        const totalReward = customerTransactions.reduce(
           (acc, item) => acc + item.rewardPoint,
           0
         );
 
-        c.rewardPoint = re;
+        c.rewardPoint = totalReward;
         return c;
       });
 
@@ -48,29 +54,18 @@ const apiService = {
   getTotalTransactions(customers, transactions) {
     try {
       const data = transactions.map((t) => {
+        // map customer with transaction with customer id, calculate rewards points for each transaction
         const customerExists = customers.find(
           (c) => Number(c.id) === Number(t.customerId)
         );
         if (customerExists) {
           t.name = customerExists?.customer_name;
-
-          let points = 0;
-          let transactionAmount = Math.floor(t.product_price);
-
-          if (transactionAmount > 100) {
-            points += 2 * (transactionAmount - 100); // Points for amounts over 100
-            transactionAmount = 100;
-          }
-
-          if (transactionAmount > 50) {
-            points += transactionAmount - 50; // Points for amounts between 51 and 100
-          }
-
-          t.rewardPoints = points;
+          t.rewardPoints = this.calculateRewardPoint(t.product_price);
         }
         return t;
       });
 
+      // sort by date in descending order
       const sortDataByDate = data.sort(
         (a, b) => Number(b.purchase_date) - Number(a.purchase_date)
       );
@@ -91,6 +86,7 @@ const apiService = {
         (acc, month) => ({ ...acc, [month]: 0 }),
         {}
       );
+
       const customerTransactions = transactions.filter(
         (transaction) => transaction.customerId == customer.id
       );
@@ -160,6 +156,7 @@ const apiService = {
 
   // calculate total rewards point by providing month list and transactions list and return result in array of objects
   accumulateRewardsByMonth(rewardsByMonth, transactions) {
+    console.log("rewardsByMonth", rewardsByMonth);
     const monthlyRewardObj = transactions.reduce((acc, transaction) => {
       const purchaseDate = new Date(transaction.purchase_date * 1000); // Convert Unix timestamp to milliseconds
       const purchaseMonth = `${purchaseDate.getUTCFullYear()}-${String(
@@ -190,6 +187,100 @@ const apiService = {
       rewardPoints,
     }));
   },
+  // get monthly rewards logic
+  getMonthlyRewardsV2(totalCustomer, transactions, startMonth, endMonth) {
+    const start = dayjs(startMonth * 1000);
+    const end = dayjs(endMonth * 1000);
+
+    // get month range in [2024-03, 2024-02] from start date to end date
+    let monthArr = [];
+    let current = start.startOf("month");
+    while (current.isBefore(end) || current.isSame(end, "month")) {
+      monthArr.push(current.format("YYYY-MM"));
+      current = current.add(1, "month");
+    }
+
+    const data = totalCustomer.map((customer) => {
+      // convert month arr [2024-03, 2024-02] to object like {2024-03 : 0, 2024-02 : 0}
+      const months = monthArr.reduce(
+        (acc, month) => ({ ...acc, [month]: 0 }),
+        {}
+      );
+
+      // filter transactions using customer id
+      const customerTransactions = transactions.filter(
+        (transaction) => transaction.customerId == customer.id
+      );
+
+      // calculate each transaction reward point and accumulate into each month then map with month object {2024-03 : 10, 2024-02 : 30}
+      const monthlyRewardObj = customerTransactions.reduce(
+        (acc, transaction) => {
+          const purchaseDate = new Date(transaction.purchase_date * 1000); // Convert Unix timestamp to milliseconds
+          const purchaseMonth = `${purchaseDate.getUTCFullYear()}-${String(
+            purchaseDate.getUTCMonth() + 1
+          ).padStart(2, "0")}`; // convert 1-9 month into 2 digit
+
+          if (acc[purchaseMonth] !== undefined) {
+            acc[purchaseMonth] += this.calculateRewardPoint(
+              transaction.product_price
+            );
+          }
+
+          return acc;
+        },
+        months
+      );
+
+      // return monthly reward points with sprading customer object
+      return {
+        ...customer,
+        monthlyRewards: Object.entries(monthlyRewardObj).map(
+          ([month, rewardPoints]) => ({
+            month,
+            rewardPoints,
+          })
+        ),
+      };
+    });
+
+    if (data) {
+      // Flatten the data manually using reduce and add unique key for data rendering
+      const newArr = data.reduce((acc, customer) => {
+        const customerRewards = customer.monthlyRewards.map(
+          ({ month, rewardPoints }) => {
+            // split month and year for sorting
+            const [year, monthNum] = month.split("-");
+            return {
+              id: customer.id,
+              uniqueKey: `${customer.id}${monthNum}${year}`,
+              customer_name: customer.customer_name,
+              year,
+              monthNum,
+              rewardPoints,
+            };
+          }
+        );
+        return acc.concat(customerRewards);
+      }, []);
+
+      // Remove 0 Reward Points data from the data
+      const sanitizeArr = newArr.filter((item) => {
+        if (item.rewardPoints > 0) return item;
+      });
+
+      // Sort Data by year and month
+      const sortedData = sanitizeArr.sort((a, b) => {
+        // compare year
+        if (b.year !== a.year) {
+          return b.year - a.year;
+        }
+        // compare months
+        return b.monthNum - a.monthNum;
+      });
+
+      return sortedData;
+    }
+  },
 };
 
-export default apiService;
+export default businessLogicService;
