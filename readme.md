@@ -230,30 +230,34 @@ To build the project for production:
 
 <img src="./public/assets/images/sidebarClose.png" alt="Project Screenshot" width="800" height="400" />
 
-3. Monthly Reward page with data
+3. Initial page load
+
+<img src="./public/assets/images/page-load.png" alt="Project Screenshot" width="800" height="400" />
+
+4. Monthly Reward page with data
 
 <img src="./public/assets/images/monthlyReward.png" alt="Project Screenshot" width="800" height="400" />
 
-4. Monthly Reward page with error message
+5. Monthly Reward page with error message
 
 <img src="./public/assets/images/monthlyReward-api error.png" alt="Project Screenshot" width="800" height="400" />
 
-5. Total Reward page with data
+6. Total Reward page with data
 
 <img src="./public/assets/images/totalReward.png" alt="Project Screenshot" width="800" height="400" />
 
-6. Total Reward page with error message
+7. Total Reward page with error message
 
 <img src="./public/assets/images/totalReward-api-error.png" alt="Project Screenshot" width="800" height="400" />
 
-7. Transaction page with data
+8. Transaction page with data
 
 <img src="./public/assets/images/transaction-page-load.png" alt="Project Screenshot" width="800" height="400" />
 
-8. Transaction page with no data message
+9. Transaction page with no data message
 
 <img src="./public/assets/images/transaction-no-data.png" alt="Project Screenshot" width="800" height="400" />
 
-9. Transaction page with error message
+10. Transaction page with error message
 
 <img src="./public/assets/images/transaction-api-error.png" alt="Project Screenshot" width="800" height="400" />
