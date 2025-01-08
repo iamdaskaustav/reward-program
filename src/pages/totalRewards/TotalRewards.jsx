@@ -16,13 +16,13 @@ const columns = [
   {
     name: "Id",
     selector: (row) => row.id,
-    sortable: true,
+    sortable: false,
     wrap: true,
   },
   {
     name: "Customer Name",
     selector: (row) => row.customer_name,
-    sortable: true,
+    sortable: false,
     wrap: true,
   },
   {

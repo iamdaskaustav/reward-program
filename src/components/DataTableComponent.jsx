@@ -24,11 +24,30 @@ const DataTableComponent = React.memo(
   ({ title, columns, data, haveExpandableRows, uniqueKey }) => {
     // console.log("Datatable component is rendering");
 
+    // Custom Sort Table
+    const customSort = (rows, selector, direction) => {
+      return rows.sort((rowA, rowB) => {
+        let aField = selector(rowA);
+        let bField = selector(rowB);
+
+        let comparison = 0;
+
+        if (aField > bField) {
+          comparison = 1;
+        } else if (aField < bField) {
+          comparison = -1;
+        }
+
+        return direction === "desc" ? comparison * -1 : comparison;
+      });
+    };
+
     return (
       <div>
         <DataTable
           responsive
           data-testid="datatable"
+          sortFunction={customSort}
           title={haveExpandableRows ? title : undefined}
           columns={columns}
           data={data}
