@@ -109,7 +109,7 @@ const MonthlyRewards = () => {
       setCustomers(respo);
       return respo;
     } catch (err) {
-      logger.error("Error in  monthly reward get customer", err);
+      logger.error("Error in monthly reward get customer", err);
       setErrorMsg(
         "It seems like there’s an error occurred in the monthly rewards"
       );
@@ -129,7 +129,7 @@ const MonthlyRewards = () => {
         setErrorMsg("It seems like there’s is no Transaction data available.");
       return respo;
     } catch (err) {
-      logger.error("Error in  monthly reward get transactions", err);
+      logger.error("Error in monthly reward get transactions", err);
       setErrorMsg(
         "It seems like there’s an error occurred in the monthly rewards"
       );
