@@ -143,7 +143,7 @@ const businessLogicService = {
               id: customer.id,
               uniqueKey: `${customer.id}${month}`,
               customer_name: customer.customer_name,
-              startMonthUnix: dayjs(month, "YYYY-MM").startOf("month").unix(),
+              monthUnix: dayjs(month, "YYYY-MM").startOf("month").unix(),
               month,
               rewardPoints,
             };
@@ -159,7 +159,7 @@ const businessLogicService = {
 
       // Sort Data by year and month
       const sortedData = sanitizeArr.sort((a, b) => {
-        return b.startMonthUnix - a.startMonthUnix;
+        return b.monthUnix - a.monthUnix;
       });
 
       return sortedData;

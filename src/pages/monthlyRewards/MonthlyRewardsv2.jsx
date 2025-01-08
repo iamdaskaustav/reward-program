@@ -26,18 +26,18 @@ const columns = [
   { name: "Name", selector: (row) => row.customer_name, wrap: true },
   {
     name: "Month",
-    selector: (row) => row.startMonthUnix,
+    selector: (row) => row.monthUnix,
     wrap: true,
     sortable: true,
-    format: (row) => dayjs(row.startMonthUnix * 1000).format("MMMM"),
+    format: (row) => dayjs(row.monthUnix * 1000).format("MMMM"),
   },
   {
     name: "Year",
-    selector: (row) => row.startMonthUnix,
+    selector: (row) => row.monthUnix,
     wrap: true,
     center: "true",
     sortable: true,
-    format: (row) => dayjs(row.startMonthUnix * 1000).year(),
+    format: (row) => dayjs(row.monthUnix * 1000).year(),
   },
   {
     name: "Reward Points",
