@@ -73,7 +73,7 @@ describe("Monthly Rewards Component", () => {
       },
     ]);
 
-    BusinessLogicService.getMonthlyRewards.mockResolvedValue([
+    BusinessLogicService.getMonthlyRewardsV2.mockResolvedValue([
       {
         id: 1,
         customer_name: "John Doe",
@@ -92,7 +92,7 @@ describe("Monthly Rewards Component", () => {
       expect(ApiService.getTransactionsByMonth).toHaveBeenCalledTimes(1)
     );
     await waitFor(() =>
-      expect(BusinessLogicService.getMonthlyRewards).toHaveBeenCalledTimes(1)
+      expect(BusinessLogicService.getMonthlyRewardsV2).toHaveBeenCalledTimes(1)
     );
   });
 
@@ -111,7 +111,7 @@ describe("Monthly Rewards Component", () => {
 
     ApiService.getCustomers.mockResolvedValue(mockCustomers);
     ApiService.getTransactionsByMonth.mockResolvedValue(mockTransactions);
-    BusinessLogicService.getMonthlyRewards.mockResolvedValue([
+    BusinessLogicService.getMonthlyRewardsV2.mockResolvedValue([
       {
         id: 1,
         customer_name: "John Doe",
@@ -127,7 +127,7 @@ describe("Monthly Rewards Component", () => {
     fireEvent.click(submitButton);
 
     await waitFor(() =>
-      expect(BusinessLogicService.getMonthlyRewards).toHaveBeenCalledWith(
+      expect(BusinessLogicService.getMonthlyRewardsV2).toHaveBeenCalledWith(
         mockCustomers,
         mockTransactions,
         expect.any(Number),
@@ -138,7 +138,7 @@ describe("Monthly Rewards Component", () => {
 
   // displays NoDataFound if no data is returned
   test("displays NoDataFound if no data is returned", async () => {
-    BusinessLogicService.getMonthlyRewards.mockResolvedValueOnce([]);
+    BusinessLogicService.getMonthlyRewardsV2.mockResolvedValueOnce([]);
 
     render(<MonthlyRewards />);
 

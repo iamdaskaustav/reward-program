@@ -26,21 +26,18 @@ const columns = [
   { name: "Name", selector: (row) => row.customer_name, wrap: true },
   {
     name: "Month",
-    selector: (row) => row.monthNum,
+    selector: (row) => row.startMonthUnix,
     wrap: true,
     sortable: true,
-    format: (row) =>
-      dayjs()
-        .month(row.monthNum - 1)
-        .format("MMMM"),
+    format: (row) => dayjs(row.startMonthUnix * 1000).format("MMMM"),
   },
   {
     name: "Year",
-    selector: (row) => row.year,
+    selector: (row) => row.startMonthUnix,
     wrap: true,
     center: "true",
     sortable: true,
-    format: (row) => dayjs(row.year).year(),
+    format: (row) => dayjs(row.startMonthUnix * 1000).year(),
   },
   {
     name: "Reward Points",
@@ -87,7 +84,7 @@ const MonthlyRewards = () => {
       const endOfMonth = dayjs(endMonth).endOf("month").unix();
       setErrorMsg("");
       setLoader(true);
-      const data = await BusinessLogicService.getMonthlyRewards(
+      const data = await BusinessLogicService.getMonthlyRewardsV2(
         customers,
         transactions,
         startOfMonth,

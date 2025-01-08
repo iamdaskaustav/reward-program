@@ -86,7 +86,8 @@ reward-program/
 ├── node_modules/              # Installed npm packages
 ├── public/                    # Public assets (e.g., images, datasets)
 │   ├── assets/                # All static assets like styles or images
-│   └── dataSets/              # Dummy JSON datasets for development/testing
+│   ├── dataSets/              # Dummy JSON datasets for development/testing
+│   └── index.html             # Index page components
 ├── src/                       # Source code files for the application
 │   ├── apis/                  # API requests and utilities
 │   │   └── index.js           # List all API requests
@@ -94,7 +95,6 @@ reward-program/
 │   ├── pages/                 # Different page components of the app
 │   ├── utils/                 # Utility functions and helpers
 │   ├── app.js                 # Main app component
-│   ├── index.html             # Index page components
 │   └── index.js               # Entry point to the application
 ├── .babelrc                   # Babel configuration for transpiling code
 ├── .gitattributes             # Git configuration (to manage line endings, etc.)
@@ -222,42 +222,38 @@ To build the project for production:
 
 ## Project Screenshot
 
-1. Dashboard without sidebar open
+1. Sidebar open
 
-<img src="./public/assets/images/dashboard.png" alt="Project Screenshot" width="800" height="400" />
+<img src="./public/assets/images/sidebarOpen.png" alt="Project Screenshot" width="800" height="400" />
 
-2. Dashboard sidebar open
+2. Sidebar close
 
-<img src="./public/assets/images/dashboard-sidebar.png" alt="Project Screenshot" width="800" height="400" />
+<img src="./public/assets/images/sidebarClose.png" alt="Project Screenshot" width="800" height="400" />
 
-3. Page initial loading or after date change submit loading
-
-<img src="./public/assets/images/transaction-page-load.png" alt="Project Screenshot" width="800" height="400" />
-
-4. Monthly Reward page with data
+3. Monthly Reward page with data
 
 <img src="./public/assets/images/monthlyReward.png" alt="Project Screenshot" width="800" height="400" />
 
-5. Monthly Reward page with error message
+4. Monthly Reward page with error message
 
 <img src="./public/assets/images/monthlyReward-api error.png" alt="Project Screenshot" width="800" height="400" />
 
-6. Total Reward page with data
+5. Total Reward page with data
 
 <img src="./public/assets/images/totalReward.png" alt="Project Screenshot" width="800" height="400" />
 
-7. Total Reward page with error message
+6. Total Reward page with error message
 
 <img src="./public/assets/images/totalReward-api-error.png" alt="Project Screenshot" width="800" height="400" />
 
-8. Transaction page with data
+7. Transaction page with data
 
-<img src="./public/assets/images/transaction.png" alt="Project Screenshot" width="800" height="400" />
+<img src="./public/assets/images/transaction-page-load.png" alt="Project Screenshot" width="800" height="400" />
 
-9. Transaction page with no data message
+8. Transaction page with no data message
 
 <img src="./public/assets/images/transaction-no-data.png" alt="Project Screenshot" width="800" height="400" />
 
-10. Transaction page with error message
+9. Transaction page with error message
 
 <img src="./public/assets/images/transaction-api-error.png" alt="Project Screenshot" width="800" height="400" />
