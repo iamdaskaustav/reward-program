@@ -224,24 +224,24 @@ To build the project for production:
 
 ### Dataset
 
-1. Customers Dataset
+1. Customers Dataset [ 5 Users]
 
 <img src="./public/assets/images/customer-datasets.png" width="1200" height="250" />
 
-2. Transactions Dataset
+2. Transactions Dataset [ Sept 2024 - Jan 2025, 20 Transactions]
 
 <img src="./public/assets/images/transactions-datasets.png" width="1200" />
 
 ### Screens
 
-1. Total Rewards
+1. Total Rewards [Sept 2024 - Jan 2025]
 
    <img src="./public/assets/images/total-rewards.png" width="1200" />
 
-2. Monthly Rewards
+2. Monthly Rewards [Nov 2024 - Jan 2025]
 
    <img src="./public/assets/images/monthly-rewards.png" width="1200" />
 
-3. Transactions
+3. Transactions [Nov 2024 - Jan 2025]
 
    <img src="./public/assets/images/transactions.png" width="1200" />
