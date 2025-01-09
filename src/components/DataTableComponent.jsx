@@ -45,6 +45,7 @@ const DataTableComponent = React.memo(
     return (
       <div>
         <DataTable
+          dense
           responsive
           data-testid="datatable"
           sortFunction={customSort}

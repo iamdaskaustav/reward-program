@@ -222,42 +222,26 @@ To build the project for production:
 
 ## Project Screenshot
 
-1. Sidebar open
+### Dataset
 
-<img src="./public/assets/images/sidebarOpen.png" alt="Project Screenshot" width="800" height="400" />
+1. Customers Dataset
 
-2. Sidebar close
+<img src="./public/assets/images/customer-datasets.png" width="1200" height="250" />
 
-<img src="./public/assets/images/sidebarClose.png" alt="Project Screenshot" width="800" height="400" />
+2. Transactions Dataset
 
-3. Initial page load
+<img src="./public/assets/images/transactions-datasets.png" width="1200" />
 
-<img src="./public/assets/images/page-load.png" alt="Project Screenshot" width="800" height="400" />
+### Screens
 
-4. Monthly Reward page with data
+1. Total Rewards
 
-<img src="./public/assets/images/monthlyReward.png" alt="Project Screenshot" width="800" height="400" />
+   <img src="./public/assets/images/total-rewards.png" width="1200" />
 
-5. Monthly Reward page with error message
+2. Monthly Rewards
 
-<img src="./public/assets/images/monthlyReward-api error.png" alt="Project Screenshot" width="800" height="400" />
+   <img src="./public/assets/images/monthly-rewards.png" width="1200" />
 
-6. Total Reward page with data
+3. Transactions
 
-<img src="./public/assets/images/totalReward.png" alt="Project Screenshot" width="800" height="400" />
-
-7. Total Reward page with error message
-
-<img src="./public/assets/images/totalReward-api-error.png" alt="Project Screenshot" width="800" height="400" />
-
-8. Transaction page with data
-
-<img src="./public/assets/images/transaction-page-load.png" alt="Project Screenshot" width="800" height="400" />
-
-9. Transaction page with no data message
-
-<img src="./public/assets/images/transaction-no-data.png" alt="Project Screenshot" width="800" height="400" />
-
-10. Transaction page with error message
-
-<img src="./public/assets/images/transaction-api-error.png" alt="Project Screenshot" width="800" height="400" />
+   <img src="./public/assets/images/transactions.png" width="1200" />

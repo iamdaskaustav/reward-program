@@ -38,7 +38,7 @@ const columns = [
       dayjs(Number(row.purchase_date) * 1000).format("MMM D, YYYY h:mm A"),
   },
   {
-    name: "Product purchased",
+    name: "Product",
     selector: (row) => row.product_name,
     sortable: false,
     wrap: true,
